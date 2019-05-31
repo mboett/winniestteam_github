@@ -1,0 +1,9 @@
+Score: 2.4
+
+Comment:
+"- Why did not you use the real data?
+- How does the search work?
+- How does the graph work with a real number of authors, papers? Does it still behave properly? Doesn't it risk to become very cluttered?
+- No interaction on the  graph
+- What is the purpos of the papers and authors table, possibly containing thousands of rows?
+- Somehow poor implementation"

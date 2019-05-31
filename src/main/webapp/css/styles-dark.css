@@ -1,0 +1,64 @@
+body {
+	font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+	/*color: #303234;*/
+	color: #FFFFFF;
+	/*background: linear-gradient(to top, #EEEEEE 60%, #DDDDDD 100%);*/
+	background-color: #303234;
+}
+
+.page	{
+	margin: 0px 4px 0px 4px;
+}
+
+img {
+	width: 100%;
+	margin: 7px 7px 7px 7px;
+}
+
+header	{
+	/*background-color: #CCCCCC;*/
+	/*background: linear-gradient(to bottom, #EEEEEE 0%, #DDDDDD 100%);*/
+	/*background-color: rgb(32, 201, 151, 0.35);*/
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	/*border: 6px solid;
+	border-color: #888888;*/
+}
+
+.nav	{
+	/*background-color: #303234;*/
+	background-color: #20c997;
+	border: 4px solid;
+	/*border-color: #303234;*/
+	border-color: #20c997;
+	border-radius: 7px;
+}
+
+a	{
+	/*color: #20c997;*/
+	color: #303234;
+}
+
+a:hover	{
+	/*color: #FFFFFF;*/
+	color: #FFFFFF;
+}
+
+.nav-pills .nav-item > .active{
+	/*background-color: #20c997;*/
+	background-color: #303234;
+	/*color: #303234;*/
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.nav-pills .nav-item > .active:hover{
+	color: #FFFFFF;
+}
+
+footer	{
+	background-color: #CCCCCC;
+	/*background-color: rgb(32, 201, 151, 0.35);*/
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}

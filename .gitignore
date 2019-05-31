@@ -1,0 +1,27 @@
+# IntelliJ Idea
+*.iml
+*.idea/
+
+# Java
+*.class
+target/
+javadoc/
+log/
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Entire XML
+dblp.xml
+dblp_purified.xml
+
+# Mac OS
+.DS_Store
+
+# Ending in ~
+*~

@@ -1,0 +1,11 @@
+**** TOMCAT ****
+
+ssh -L 8080:dbstud.dei.unipd.it:8080 cattapanal@login.dei.unipd.it
+
+**** TOMCAT & CONNECT TO THE DATABASE ****
+
+ssh -L 8080:dbstud.dei.unipd.it:8080 cattapanal@login.dei.unipd.it
+ssh cattapanal@dbstud.dei.unipd.it
+psql -U webapp1819 -d webapp1819
+
+(password:1819webapp)

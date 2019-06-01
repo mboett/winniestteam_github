@@ -55,14 +55,6 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 			author = new SearchAuthorByIDDatabase(getDataSource().getConnection(), ID)
 					.searchAuthorByID();
 			
-			// Search years
-			years = new FindYears(getDataSource().getConnection(), ID)
-					.getYears();
-					
-			// Search coauthors
-			coauthors = new FindCoauthors(getDataSource().getConnection(), ID)
-					.getCoauthors();
-			
 			m = new Message("Author successfully searched.");
 			
 		} catch (NumberFormatException ex) {
@@ -76,8 +68,6 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 
 		// Stores the author and the message as a request attribute
 		req.setAttribute("author", author);
-		req.setAttribute("years", years);
-		req.setAttribute("coauthors", coauthors);
 		req.setAttribute("message", m);
 		
 		// Forwards the control to the author JSP

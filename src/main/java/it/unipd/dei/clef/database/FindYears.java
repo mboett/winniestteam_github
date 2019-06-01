@@ -40,8 +40,6 @@ public class FindYears {
 		ResultSet rs = null;
 
 		// The results of the search
-
-		
 		ArrayList<YearOccurence> yearArray = new ArrayList<>();
 		YearOccurence curYear = null;
 		int year;

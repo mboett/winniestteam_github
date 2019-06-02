@@ -69,7 +69,7 @@ public final class StatisticRestResource extends RestResource {
 	 */
 	public void getYearStatistic() throws IOException {
 
-		YearsStatistic e  = null;
+		YearsStatistic stat  = null;
 		Message m = null;
 
 		try{
@@ -79,19 +79,19 @@ public final class StatisticRestResource extends RestResource {
 
 			final int id = Integer.parseInt(path.substring(1));
 			
-			/*
-			// creates a new object for accessing the database and reads the employee
-			e = new ReadEmployeeDatabase(con, badge).readEmployee();
+			
+			// creates a new object for accessing the database and reads the statistic
+			stat = new FindYears(con, id).getYears();
 
-			if(e != null) {
+			if(stat != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				e.toJSON(res.getOutputStream());
+				stat.toJSON(res.getOutputStream());
 			} else {
-				m = new Message(String.format("Employee %d not found.", badge), "E5A3", null);
+				m = new Message(String.format("Year statistic %d not found.", id), "E5A3", null);
 				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				m.toJSON(res.getOutputStream());
 			}
-			*/
+			
 		} catch (Throwable t) {
 			m = new Message("Cannot read employee: unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

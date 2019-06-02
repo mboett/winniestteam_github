@@ -3,6 +3,7 @@ package it.unipd.dei.clef.database;
 import it.unipd.dei.clef.resource.Author;
 import it.unipd.dei.clef.resource.Paper;
 import it.unipd.dei.clef.resource.YearOccurence;
+import it.unipd.dei.clef.resource.YearsStatistic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ public class FindYears {
 		this.authorID = id;
 	}
 	
-	public ArrayList<YearOccurence> getYears() throws SQLException {
+	public YearsStatistic getYears() throws SQLException {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -88,8 +89,10 @@ public class FindYears {
 
 			con.close();
 		}
-
-		return yearArray;
+		
+		// Create the final object to be sent
+		YearsStatistic stat = new YearsStatistic(yearArray);
+		return stat;
 	}
 }
 

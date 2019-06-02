@@ -1,10 +1,19 @@
+// Current URL of the page
 var url = new URL(window.location.href);
 var id = url.searchParams.get("id");
-var jsonVar = "../json/authors/author"+id+".json";
 
-console.log("link: " + jsonVar);
+// Build Rest URL
+var restURL = "rest/statistic/years/"+id;
 
-$.getJSON(jsonVar, function ( data ) {
+// Ajax request
+$.ajax({
+  dataType: "json",
+  url: restURL,
+  // data: data,
+  success: displayHist
+});
+
+function displayHist( data ) {
 
     var datas = [];
     var label = [];

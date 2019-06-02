@@ -1,7 +1,7 @@
 package it.unipd.dei.clef.servlet;
 
 import it.unipd.dei.clef.resource.*;
-// import it.unipd.dei.webapp.rest.EmployeeRestResource;
+import it.unipd.dei.clef.rest.StatisticRestResource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -206,8 +206,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 								try {
 									Integer.parseInt(path.substring(1));
 									
-									// GET INFORMATION FROM THE DATABASE HISTOGRAM (YEARS)
-									// new EmployeeRestResource(req, res, getDataSource().getConnection()).searchEmployeeBySalary();
+									new StatisticRestResource(req, res, getDataSource().getConnection()).getYearStatistic();
 								} catch (NumberFormatException e) {
 									m = new Message(
 											"Wrong format for URI /statistic/years/{id}: {id} is not an integer.",

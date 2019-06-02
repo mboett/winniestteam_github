@@ -10,8 +10,24 @@
 	<welcome-file-list>
 		<welcome-file>jsp/home.jsp</welcome-file>
 	</welcome-file-list>
-    
-	<!-- Servelet for Athors-->
+	
+	<!-- Servlet for REST request-->
+	<servlet>
+		<servlet-name>RestManagerServlet</servlet-name>
+		<servlet-class>it.unipd.dei.clef.servlet.RestManagerServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RestManagerServlet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RestManagerServlet</servlet-name>
+		<url-pattern>/jsp/rest/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Servlet for Athors-->
 	<servlet>
         <servlet-name>SearchAuthorByIDServlet</servlet-name>
         <servlet-class>it.unipd.dei.clef.servlet.SearchAuthorByIDServlet</servlet-class>
@@ -27,7 +43,7 @@
         <url-pattern>/jsp/search-author</url-pattern>
     </servlet-mapping>
 	
-	<!-- Servelet for Authors Name -->
+	<!-- Servlet for Authors Name -->
 	<servlet>
         <servlet-name>SearchAuthorByNameServlet</servlet-name>
         <servlet-class>it.unipd.dei.clef.servlet.SearchAuthorByNameServlet</servlet-class>

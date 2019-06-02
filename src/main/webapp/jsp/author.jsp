@@ -97,8 +97,8 @@
     <c:import url="/jsp/foot.jsp"/>
 	<!--<script src="/winniest-team-project-1.00/js/author_title.js"></script>-->
     <!--<script src="/winniest-team-project-1.00/js/author_paper_table.js"></script>-->
-	<script src="/winniest-team-project-1.00/js/coauthor_hist.js"></script>
-	<script src="/winniest-team-project-1.00/js/years_pie.js"></script>
+	<script src="/winniest-team-project-1.00/js/coauthor_stat.js"></script>
+	<script src="/winniest-team-project-1.00/js/years_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/code.js"></script>
 
   </body>

@@ -15,7 +15,7 @@ $.ajax({
 function displayPie(data) {
 
 	// Log message 
-	console.log(data.message.message);
+	console.log(data.message);
 
 	if (data.message.error-code != null){
 	  console.log(data.message.error-code);

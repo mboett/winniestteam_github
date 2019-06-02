@@ -9,12 +9,19 @@ var restURL = "rest/statistic/years/"+id;
 $.ajax({
   dataType: "json",
   url: restURL,
-  // data: data,
   success: displayHist
 });
 
 function displayHist( data ) {
 
+	// Log message 
+	console.log(data.message.message);
+
+	if (data.message.error-code != null){
+	  console.log(data.message.error-code);
+	  console.log(data.message.error-details);
+	}
+  
     var datas = [];
     var label = [];
     var i;

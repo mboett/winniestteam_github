@@ -2,6 +2,7 @@ package it.unipd.dei.clef.database;
 
 import it.unipd.dei.clef.resource.Author;
 import it.unipd.dei.clef.resource.Paper;
+import it.unipd.dei.clef.resource.CoauthorsStatistic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +29,6 @@ public final class FindCoauthors {
 	private static final String GET_COAUT = "SELECT Author.Name, Author.AuthorID FROM Author INNER JOIN Write ON Author.AuthorID = Write.AuthorID INNER JOIN Paper ON Write.PaperID = Paper.PaperID WHERE Paper.PaperID = ?";
 	
 
-
 	/**
 	 * The connection to the database
 	 */
@@ -45,7 +45,7 @@ public final class FindCoauthors {
 	}
 
 	
-	public ArrayList<Author> getCoauthors() throws SQLException {
+	public CoauthorsStatistic getCoauthors() throws SQLException {
 
 		PreparedStatement paperPstmt = null;
 		PreparedStatement coautPstmt = null;
@@ -144,7 +144,9 @@ public final class FindCoauthors {
 
 			con.close();
 		}
-
-		return coauthorArray;
+		
+		// Build the result to be sent
+		CoauthorsStatistic stat = new CoauthorsStatistic(coauthorArray);
+		return stat;
 	}
 }

@@ -30,35 +30,34 @@ public final class StatisticRestResource extends RestResource {
 	 * @throws IOException
 	 *             if any error occurs in the client/server communication.
 	 */
-	public void getCoathorsStatistic() throws IOException {
+	public void getCoauthorsStatistic() throws IOException {
 
-		/*Employee e  = null;
+		CoauthorsStatistic stat  = null;
 		Message m = null;
 
 		try{
-			// parse the URI path to extract the badge
+			// parse the URI path to extract the id
 			String path = req.getRequestURI();
-			path = path.substring(path.lastIndexOf("employee") + 8);
+			path = path.substring(path.lastIndexOf("coauthors") + 9);
 
-			final int badge = Integer.parseInt(path.substring(1));
+			final int id = Integer.parseInt(path.substring(1));
 
+			// creates a new object for accessing the database and reads the coauthors
+			stat = new FindCoauthors(con, id).getCoauthors();
 
-			// creates a new object for accessing the database and reads the employee
-			e = new ReadEmployeeDatabase(con, badge).readEmployee();
-
-			if(e != null) {
+			if(stat != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				e.toJSON(res.getOutputStream());
+				stat.toJSON(res.getOutputStream());
 			} else {
-				m = new Message(String.format("Employee %d not found.", badge), "E5A3", null);
+				m = new Message(String.format("Coauthor statistic %d not found.", id), "E5A3", null);
 				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				m.toJSON(res.getOutputStream());
 			}
 		} catch (Throwable t) {
-			m = new Message("Cannot read employee: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot read coauthors statistic: unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
-		}*/
+		}
 	}
 
 	/**

@@ -40,7 +40,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="paper" items="${author.pubList}" escapeXml="false">
+										<c:forEach var="paper" items="${author.pubList}">
 											<tr>
 												<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}" escapeXml="false"/></a></div></td>
 											</tr>
@@ -66,7 +66,7 @@
 
 				<c:if test="${not sessionScope.log}">
 					<c:if test='${not empty author}'>
-						<h1 class="title"><c:out value="${author.name}"/></h1>
+						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/></h1>
 
 						<div class="row">
 							<div class = "col-md-8">
@@ -86,7 +86,7 @@
 										<tbody>
 											<c:forEach var="paper" items="${author.pubList}">
 												<tr>
-													<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}"/></a></div></td>
+													<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}" escapeXml="false"/></a></div></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -141,8 +141,7 @@
 		<c:import url="/jsp/footer.jsp"/>
 
     <c:import url="/jsp/foot.jsp"/>
-	<!--<script src="/winniest-team-project-1.00/js/author_title.js"></script>-->
-    <!--<script src="/winniest-team-project-1.00/js/author_paper_table.js"></script>-->
+    <c:import url="/jsp/foot.jsp"/>
 	<script src="/winniest-team-project-1.00/js/coauthor_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/years_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/code.js"></script>

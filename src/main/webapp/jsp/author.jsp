@@ -22,7 +22,7 @@
 			<div class="content">
 			<c:if test="${sessionScope.log}">
 				<c:if test='${not empty author}'>
-					<h1 class="title"><c:out value="${author.name}"/> <button><i class="far fa-heart"></i></button></h1>
+					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/> <button><i class="far fa-heart"></i></button></h1>
 
 					<div class="row">
 						<div class = "col-md-8">
@@ -40,9 +40,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="paper" items="${author.pubList}">
+										<c:forEach var="paper" items="${author.pubList}" escapeXml="false">
 											<tr>
-												<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}"/></a></div></td>
+												<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}" escapeXml="false"/></a></div></td>
 											</tr>
 										</c:forEach>
 									</tbody>

@@ -22,7 +22,7 @@
 			<div class="content">
 			
 				<c:if test='${not empty author}'>
-					<h1 class="title"><c:out value="${author.name}"/> <i class="far fa-heart"></i></h1>
+					<h1 class="title"><c:out value="${author.name}"/> <button><i class="far fa-heart"></i></button></h1>
 
 					<div class="row">
 						<div class = "col-md-8">

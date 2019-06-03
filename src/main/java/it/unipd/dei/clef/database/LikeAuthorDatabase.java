@@ -48,39 +48,39 @@ public final class LikeAuthorDatabase {
 
 	}
 
-public int findAuthor() throws SQLException {
+	public int findAuthor() throws SQLException {
 
-	PreparedStatement pstmt_author = null;
-	ResultSet rs_author = null;
-	int authorID = -1;
+		PreparedStatement pstmt_author = null;
+		ResultSet rs_author = null;
+		int authorID = -1;
 
-	try {
+		try {
 
-		pstmt_author = con.prepareStatement(SELECT_AUTHOR);
-		rs_author = pstmt_author.executeQuery();
+			pstmt_author = con.prepareStatement(SELECT_AUTHOR);
+			rs_author = pstmt_author.executeQuery();
 
-		pstmt_author.setString(1,  author_name);
+			pstmt_author.setString(1,  author_name);
 
-		while (rs_author.next()) {
-				authorID = rs_author.getInt("AuthorID");
+			while (rs_author.next()) {
+					authorID = rs_author.getInt("AuthorID");
+			}
+
+			pstmt_author.execute();
+
+		} finally {
+
+			if (rs_author != null) {
+				rs_author.close();
+			}
+
+			if (pstmt_author != null) {
+				pstmt_author.close();
+			}
+
+			con.close();
 		}
 
-		pstmt_author.execute();
+		return authorID;
 
-	} finally {
-
-		if (rs_author != null) {
-			rs_author.close();
 		}
-
-		if (pstmt_author != null) {
-			pstmt_author.close();
-		}
-
-		con.close();
-	}
-
-	return authorID;
-
-	}
 }

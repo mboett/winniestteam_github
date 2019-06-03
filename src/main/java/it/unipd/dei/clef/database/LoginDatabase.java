@@ -53,4 +53,39 @@ public final class LoginDatabase {
 
 		return false;
 	}
+
+	public Strinf getUserEmail() throws SQLException {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String user_email = null;
+
+		try {
+			pstmt = con.prepareStatement(STATEMENT);
+			pstmt.setString(1, clefUser.getEmail());
+			pstmt.setString(2, clefUser.getPassword());
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+					if(rs.getString("Email") != null) {
+							user_email = rs.getString("Email");
+					}
+			}
+
+		} finally {
+
+			if (rs != null) {
+				rs.close();
+			}
+
+			if (pstmt != null) {
+				pstmt.close();
+			}
+
+			con.close();
+		}
+
+	}
+
 }

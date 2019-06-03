@@ -41,32 +41,74 @@ public class CoauthorsStatistic extends Resource {
 		jg.writeFieldName("coauthorstat");
 		
 		// print array
-		jg.writeRaw("[");
+		jg.writeStartArray();
+
+		jg.flush();				
+			
+		boolean firstElement = true;
+
+	    for (final Author r : statistic) {
+
+	        // very bad work-around to add commas between resources
+	        if (firstElement) {
+
+	        	jg.writeStartObject();
+
+				jg.writeFieldName("stat");
+
+	            jg.writeStartObject();
 		
-		// print all the coauthors
-		for (int i = 0; i < statistic.size(); i++){
-			jg.writeStartObject();
-			
-			Author coathorOcc = statistic.get(i);
-			
-			jg.writeStringField("coauthor", coathorOcc.getName());
-			
-			jg.writeNumberField("num", coathorOcc.getCollab());
-			
-			jg.writeNumberField("id", coathorOcc.getID());
-			
-			jg.writeEndObject();
-			
-			if (i != statistic.size() - 1 ){
-				jg.writeRaw(",");
-			}
-		}
+				jg.writeStringField("coauthor", r.getName());
+				
+				jg.writeNumberField("num", r.getCollab());
+				
+				jg.writeNumberField("id", r.getID());
+				
+				jg.writeEndObject();
+
+				jg.writeEndObject();
+
+	            jg.flush();
+
+	            jg.flush();
+
+	            firstElement = false;
+	        } else {
+	            jg.writeRaw(',');
+
+	            jg.flush();
+
+	            jg.writeStartObject();
+
+				jg.writeFieldName("stat");
+
+				jg.writeStartObject();
+
+				jg.writeStringField("coauthor", r.getName());
+				
+				jg.writeNumberField("num", r.getCollab());
+				
+				jg.writeNumberField("id", r.getID());
+				
+				jg.writeEndObject();
+
+				jg.writeEndObject();
+
+	            jg.flush();
+
+	            jg.flush();
+	        }
+	    }
+
+		
 		
 		// close array
-		jg.writeRaw("]");
+		jg.writeEndArray();
 
 		jg.writeEndObject();
 
 		jg.flush();
+
+		jg.close();
 	}
 }

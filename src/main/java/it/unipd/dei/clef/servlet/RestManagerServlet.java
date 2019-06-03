@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Manages the REST API for the different REST resources.
@@ -169,8 +171,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 								try {
 									Integer.parseInt(path.substring(1));
 									
-									// GET INFORMATION FROM THE DATABASE PIE (COAUTHORS)
-									// new EmployeeRestResource(req, res, getDataSource().getConnection()).searchEmployeeBySalary();
+									new StatisticRestResource(req, res, getDataSource().getConnection()).getCoauthorsStatistic();
 								} catch (NumberFormatException e) {
 									m = new Message(
 											"Wrong format for URI /statistic/coauthors/{id}: {id} is not an integer.",
@@ -227,7 +228,14 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 				}
 			}
 		} catch(Throwable t) {
-			m = new Message("Unexpected error.", "E5A1", t.getMessage());
+			try {
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				t.printStackTrace(pw);
+				m = new Message("Unexpected error.", "E5A1", sw.toString());
+			} catch (Exception e){
+				m = new Message("Printing Error Error.", "E5A1", e.getMessage());
+			}
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}

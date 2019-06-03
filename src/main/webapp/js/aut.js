@@ -10,7 +10,7 @@ $(document).ready(function() {
 					"render": 
 						function(data, type, row, meta){
 							if(type === 'display'){
-								data = '<a class="link" href="search-author?id='+row.ID+'">' + data + '</a>';
+								data = '<a class="link" href="search-author?id='+row.ID+'">' + data + '</a> <i class="far fa-heart"></i>';
 							}
 							return data;
 						}

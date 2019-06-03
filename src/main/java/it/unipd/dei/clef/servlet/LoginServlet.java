@@ -26,7 +26,7 @@ public class LoginServlet extends AbstractDatabaseServlet {
         request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
       }
       catch (SQLException ex) {
-        request.getRequestDispatcher("/jsp/signup.jsp").forward(request, response);
+        request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
       }
 
   }

@@ -8,7 +8,7 @@
 	<head>
 
 		<c:import url="/jsp/head.jsp"/>
-	
+
 		<title>Authors</title>
 
 	</head>
@@ -16,13 +16,14 @@
 	<body>
 
 		<div class = "container">
-			
+
 			<c:import url="/jsp/header.jsp"/>
-			
+
 			<div class="content">
-			
+			<c:if test="${sessionScope.log}">
 				<c:if test='${not empty author}'>
-					<h1 class="title"><c:out value="${author.name}"/> <button><i class="far fa-heart"></i></button></h1>
+				
+					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/> <button><i class="far fa-heart"></i></button></h1>
 
 					<div class="row">
 						<div class = "col-md-8">
@@ -42,14 +43,14 @@
 									<tbody>
 										<c:forEach var="paper" items="${author.pubList}">
 											<tr>
-												<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}"/></a></div></td>
+												<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}" escapeXml="false"/></a></div></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
-							
+
 						<div class = "col-md-4">
 							<div class="container" id="stats">
 								<div class="row">
@@ -62,7 +63,53 @@
 						</div>
 					</div>
 				</c:if>
-				
+				</c:if>
+
+				<c:if test="${not sessionScope.log}">
+					<c:if test='${not empty author}'>
+						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/></h1>
+
+						<div class="row">
+							<div class = "col-md-8">
+								<div class="table-Responsive">
+									<h5>Publications</h5>
+									<h6>Click on the name of the paper you are interested in to get more info and statistics</h6>
+									<br />
+									<!--<table class="table table-bordered table-striped" id="file_table">-->
+									<table id="file_table">
+										<thead>
+											<tr>
+												<th>
+													Title
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="paper" items="${author.pubList}">
+												<tr>
+													<td><div id="linkdiv"><a class="link" href="<c:out value="${paper.ee}"/>"><c:out value="${paper.title}" escapeXml="false"/></a></div></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class = "col-md-4">
+								<div class="container" id="stats">
+									<div class="row">
+										<canvas id="myChart-A"></canvas>
+									</div>
+									<div class="row">
+										<canvas id="myChart-B"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					</c:if>
+
+
 				<c:if test='${empty author}'>
 					<div class="row text-center align-items-center" id="search-error">
 						<div class="col-md-4">
@@ -93,10 +140,9 @@
 			</div>
 
 		<c:import url="/jsp/footer.jsp"/>
-		
+
     <c:import url="/jsp/foot.jsp"/>
-	<!--<script src="/winniest-team-project-1.00/js/author_title.js"></script>-->
-    <!--<script src="/winniest-team-project-1.00/js/author_paper_table.js"></script>-->
+    <c:import url="/jsp/foot.jsp"/>
 	<script src="/winniest-team-project-1.00/js/coauthor_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/years_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/code.js"></script>

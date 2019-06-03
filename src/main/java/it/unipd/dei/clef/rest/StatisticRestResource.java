@@ -32,22 +32,22 @@ public final class StatisticRestResource extends RestResource {
 	 */
 	public void getCoauthorsStatistic() throws IOException {
 
-		CoauthorsStatistic stat  = null;
+		List<Coauthor> stat  = null;
 		Message m = null;
 
 		try{
-			// parse the URI path to extract the id
+			// Parse the URI path to extract the id
 			String path = req.getRequestURI();
 			path = path.substring(path.lastIndexOf("coauthors") + 9);
 
 			final int id = Integer.parseInt(path.substring(1));
 
-			// creates a new object for accessing the database and reads the coauthors
+			// Creates a new object for accessing the database and reads the coauthors
 			stat = new FindCoauthors(con, id).getCoauthors();
 
 			if(stat != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				stat.toJSON(res.getOutputStream());
+				new ResourceList(stat).toJSON(res.getOutputStream());
 			} else {
 				m = new Message(String.format("Coauthor statistic %d not found.", id), "E5A3", null);
 				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -68,7 +68,7 @@ public final class StatisticRestResource extends RestResource {
 	 */
 	public void getYearStatistic() throws IOException {
 
-		YearsStatistic stat  = null;
+		List<YearOccurence> stat  = null;
 		Message m = null;
 
 		try{
@@ -83,7 +83,7 @@ public final class StatisticRestResource extends RestResource {
 			
 			if(stat != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				stat.toJSON(res.getOutputStream());
+				new ResourceList(stat).toJSON(res.getOutputStream());
 			} else {
 				m = new Message(String.format("Year statistic %d not found.", id), "E5A3", null);
 				res.setStatus(HttpServletResponse.SC_NOT_FOUND);

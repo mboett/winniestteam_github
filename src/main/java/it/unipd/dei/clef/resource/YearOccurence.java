@@ -1,9 +1,13 @@
 package it.unipd.dei.clef.resource;
 
 import java.util.ArrayList;
+import it.unipd.dei.clef.resource.Resource;
+import com.fasterxml.jackson.core.*;
+
+import java.io.*;
 
 
-public class YearOccurence implements Comparable<YearOccurence>{
+public class YearOccurence extends Resource implements Comparable<YearOccurence>{
 
 	private final int year;
 
@@ -17,14 +21,30 @@ public class YearOccurence implements Comparable<YearOccurence>{
 
 	}
 
-	public int getYear() {
+	final public int getYear() {
 
 		return year;
 	}
 
-	public int getOccurence() {
+	final public int getOccurence() {
 
 		return occurence;
+	}
+	
+	@Override
+	public final void toJSON(final OutputStream out) throws IOException {
+
+		final JsonGenerator jg = JSON_FACTORY.createGenerator(out);
+
+		jg.writeStartObject();
+
+		jg.writeNumberField("year", year);
+
+		jg.writeNumberField("num", occurence);
+
+		jg.writeEndObject();
+
+		jg.flush();
 	}
 
 	public boolean equals(Object other) {

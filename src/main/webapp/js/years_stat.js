@@ -14,11 +14,9 @@ $.ajax({
 
 function displayHist( data ) {
 
-	// Log message
-	console.log(data.message);
-	
 	// Log error message
 	if (data.message.error-code != null){
+		console.log(data.message);
 		console.log(data.message.error-code);
 		console.log(data.message.error-details);
 	}
@@ -26,9 +24,10 @@ function displayHist( data ) {
 	var datas = [];
 	var label = [];
 	var i;
-	for (i = 0; i < data.yearstat.length; i++) {
-	  label[i] = data.yearstat[i].year;
-	  datas[i] = data.yearstat[i].num;
+	var list = data["resource-list"];
+	for (i = 0; i < list.length; i++) {
+	  label[i] = list[i].year;
+	  datas[i] = list[i].num;
 	}
 
 	let myChart = document.getElementById('myChart-A').getContext('2d');

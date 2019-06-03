@@ -1,8 +1,8 @@
 package it.unipd.dei.clef.database;
 
 import it.unipd.dei.clef.resource.Author;
+import it.unipd.dei.clef.resource.Coauthor;
 import it.unipd.dei.clef.resource.Paper;
-import it.unipd.dei.clef.resource.CoauthorsStatistic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +28,7 @@ public final class FindCoauthors {
 	
 	
 
-	private static final String GET_COAUT_OC = "SELECT CA.AuthorID, CA.Name, COUNT(*) FROM Author AS CA INNER JOIN Write AS W2 ON CA.AuthorID = W2.AuthorID INNER JOIN Paper AS P ON W2.PaperID = P.PaperID INNER JOIN Write AS W1 ON P.PaperID = W1.PaperID INNER JOIN Author AS SI ON W1.AuthorID = SI.AuthorID WHERE SI.AuthorID = ? AND CA.AuthorID <> SI.AuthorID GROUP BY CA.AuthorID";
+	private static final String GET_COAUT_OC = "SELECT CA.AuthorID, CA.Name, COUNT(*) AS numCol FROM Author AS CA INNER JOIN Write AS W2 ON CA.AuthorID = W2.AuthorID INNER JOIN Paper AS P ON W2.PaperID = P.PaperID INNER JOIN Write AS W1 ON P.PaperID = W1.PaperID INNER JOIN Author AS SI ON W1.AuthorID = SI.AuthorID WHERE SI.AuthorID = ? AND CA.AuthorID <> SI.AuthorID GROUP BY CA.AuthorID ORDER BY numCol DESC LIMIT ?";
 
 	/**
 	 * The connection to the database
@@ -46,41 +46,35 @@ public final class FindCoauthors {
 	}
 
 	
-	public CoauthorsStatistic getCoauthors() throws SQLException {
+	public List<Coauthor> getCoauthors() throws SQLException {
 	
-
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		// The results of the search
-		ArrayList<Author> coautArray = new ArrayList<>();
-		Author curCoaut = null;
-		int coaID = 0;
-		String coautName = null;
-		int occ = 0;
+		final List<Coauthor> coautArray = new ArrayList<>();
 		
-
-
+		Coauthor curCoaut = null;
+		int coaID = -1;
+		String coautName = null;
+		int occ = -1;
+		
 		try {
 			pstmt = con.prepareStatement(GET_COAUT_OC);
 			pstmt.setInt(1, authorID);
+			pstmt.setInt(2,MAX_CO);
 
 			rs = pstmt.executeQuery();
 			
-			
-
-			// Get coauthors with occuurencies
+			// Get coauthors with occurencies
 			while (rs.next()) {
-
+				
 				coaID = rs.getInt(1);
 				coautName = rs.getString(2);
 				occ = rs.getInt(3);
-				curCoaut = new Author(authorID, coautName, occ);
+				curCoaut = new Coauthor(authorID, coautName, occ);
 				coautArray.add(curCoaut);
 			}
-
-
-
 
 		} finally {
 			if (rs != null) {
@@ -94,8 +88,6 @@ public final class FindCoauthors {
 			con.close();
 		}
 		
-		// Create the final object to be sent
-		CoauthorsStatistic stat = new CoauthorsStatistic(coautArray);
-		return stat;
+		return coautArray;
 	}
 }

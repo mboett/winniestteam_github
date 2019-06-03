@@ -3,7 +3,6 @@ package it.unipd.dei.clef.database;
 import it.unipd.dei.clef.resource.Author;
 import it.unipd.dei.clef.resource.Paper;
 import it.unipd.dei.clef.resource.YearOccurence;
-import it.unipd.dei.clef.resource.YearsStatistic;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,46 +34,51 @@ public class FindYears {
 		this.authorID = id;
 	}
 	
-	public YearsStatistic getYears() throws SQLException {
+	public List<YearOccurence> getYears() throws SQLException {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		// The results of the search
-		final ArrayList<YearOccurence> yearArray = new ArrayList<>();
+		final List<YearOccurence> yearArray = new ArrayList<>();
+		
 		YearOccurence curYear = null;
-		int year;
-		int occ;
-		int checkYear;
-
+		int year = -1;
+		int occ = -1;
+		int checkYear = -1;
 
 		try {
 			pstmt = con.prepareStatement(GET_YEAR_OC);
 			pstmt.setInt(1, authorID);
 
 			rs = pstmt.executeQuery();
+			
 			boolean firstYear = true;
-			rs.next();
-			year = rs.getInt(1);
-			occ = rs.getInt(2);
-			curYear = new YearOccurence(year, occ);
-			yearArray.add(curYear);
-			checkYear = year+1;
 
 			// Get paperID of the author publications
 			while (rs.next()) {
 
+				// Retrive informations from database
 				year = rs.getInt(1);
 				occ = rs.getInt(2);
-				curYear = new YearOccurence(year, occ);
-				if(year > checkYear) {
+				
+				if (firstYear){
+					firstYear = false;
+					checkYear = year + 1;
+				}
+				
+				// Insert years with zero pubblications
+				while (year > checkYear){
 					yearArray.add(new YearOccurence(checkYear, 0));
 					checkYear++;
 				}
-				checkYear = year+1;
-				yearArray.add(curYear);
+				
+				// Add the current year
+				yearArray.add(new YearOccurence(year, occ));
+				
+				// Update CheckYear
+				checkYear++;
 			}
-
 
 		} finally {
 			if (rs != null) {
@@ -88,9 +92,7 @@ public class FindYears {
 			con.close();
 		}
 		
-		// Create the final object to be sent
-		YearsStatistic stat = new YearsStatistic(yearArray);
-		return stat;
+		return yearArray;
 	}
 }
 

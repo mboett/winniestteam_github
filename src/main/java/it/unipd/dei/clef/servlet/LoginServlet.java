@@ -16,18 +16,19 @@ public class LoginServlet extends AbstractDatabaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
       request.getSession().setAttribute("email", request.getParameter("email"));
       request.getSession().setAttribute("password", request.getParameter("password"));
-	  
+
       ClefUser clefUser = new ClefUser(request.getParameter("email"), request.getParameter("password"));
 
       try {
         LoginDatabase log_db = new LoginDatabase(getDataSource().getConnection(), clefUser);
         request.getSession().setAttribute("log", log_db.Login());
+        request.getSession().setAttribute("email", log_db.getUserEmail());
         request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
       }
       catch (SQLException ex) {
-        request.getRequestDispatcher("/jsp/signup.jsp").forward(request, response);
+        request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
       }
-	  
+
   }
 
 }

@@ -42,14 +42,14 @@
         outboundAttractionDistribution: false,
         adjustSizes: false,
         edgeWeightInfluence: 0,
-        scalingRatio: 10,
+        scalingRatio: 1,
         strongGravityMode: false,
         gravity: 1,
         slowDown: 1,
-        barnesHutOptimize: false,
+        barnesHutOptimize: true,
         barnesHutTheta: 0.5,
-        startingIterations: 10,
-        iterationsPerRender: 20
+        startingIterations: 1,
+        iterationsPerRender: 1
       }
     };
 

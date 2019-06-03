@@ -8,7 +8,7 @@
 
 		<c:import url="/jsp/head.jsp"/>
 	
-		<title>Papers</title>
+		<title>CLEF | Papers</title>
 
 	</head>
 

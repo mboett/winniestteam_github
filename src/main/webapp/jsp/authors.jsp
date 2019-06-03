@@ -9,7 +9,7 @@
 
 		<c:import url="/jsp/head.jsp"/>
 
-		<title>Authors</title>
+		<title>CLEF | Authors</title>
 
 	</head>
 

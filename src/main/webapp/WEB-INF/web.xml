@@ -79,6 +79,11 @@
         <servlet-name>CreatePaperServlet</servlet-name>
         <servlet-class>it.unipd.dei.clef.servlet.CreatePaperServlet</servlet-class>
     </servlet>
+	
+	  <servlet>
+        <servlet-name>LikeServlet</servlet-name>
+        <servlet-class>it.unipd.dei.clef.servlet.LikeServlet</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -118,6 +123,16 @@
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
         <url-pattern>/jsp/signup</url-pattern>
+    </servlet-mapping>
+	
+	<servlet-mapping>
+        <servlet-name>LikeServlet</servlet-name>
+        <url-pattern>/like</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LikeServlet</servlet-name>
+        <url-pattern>/jsp/like</url-pattern>
     </servlet-mapping>
 	
 	<resource-ref>

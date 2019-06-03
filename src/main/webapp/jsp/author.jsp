@@ -8,8 +8,15 @@
 	<head>
 
 		<c:import url="/jsp/head.jsp"/>
-
-		<title>Authors</title>
+		
+		<title>
+			<c:if test='${not empty author}'>
+				CLEF | <c:out value="${author.name}"/>
+			</c:if>
+			<c:if test='${empty author}'>
+				Not Found
+			</c:if>
+		</title>
 
 	</head>
 
@@ -23,7 +30,7 @@
 			<c:if test="${sessionScope.log}">
 				<c:if test='${not empty author}'>
 				
-					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/> <button><i class="far fa-heart"></i></button></h1>
+					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/> <button action="like" method="POST"><i class="far fa-heart"></i></button></h1>
 
 					<div class="row">
 						<div class = "col-md-8">
@@ -63,7 +70,7 @@
 						</div>
 					</div>
 				</c:if>
-				</c:if>
+			</c:if>
 
 				<c:if test="${not sessionScope.log}">
 					<c:if test='${not empty author}'>

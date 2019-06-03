@@ -45,7 +45,7 @@
 			</c:if>
 			<c:if test="${sessionScope.log}">
 		    <form action="logout" method="POST">
-						Logged In as <c:out value="${sessionScope.email}"/>
+				<p id="login-as"> Logged in as <b><c:out value="${sessionScope.email}"/>	</b></p>
 		        <button type="submit" class="btn btn-primary btn-sm btn-block" id="signin-button">Logout <i class="fas fa-sign-out-alt"></i></button>
 		    </form>
 			</c:if>

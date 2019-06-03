@@ -8,7 +8,7 @@
 
 		<c:import url="/jsp/head.jsp"/>
 
-		<title>Sign up!</title>
+		<title>CLEF | Sign up!</title>
 
 	</head>
 

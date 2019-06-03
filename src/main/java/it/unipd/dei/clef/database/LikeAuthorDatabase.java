@@ -15,7 +15,7 @@ public final class LikeAuthorDatabase {
 
 	private final Connection con;
 
-  private final Likes likes;
+	private final Likes likes;
 
 	private final String author_name;
 
@@ -35,7 +35,7 @@ public final class LikeAuthorDatabase {
 			pstmt_like.setString(1, likes.getEmail());
 			pstmt_like.setInt(1, likes.getAuthorID());
 
-			pstmt_like.execute();
+			pstmt_like.executeQuery();
 
 		} finally {
 

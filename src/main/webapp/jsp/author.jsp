@@ -29,7 +29,7 @@
 							<div class="table-Responsive">
 								<h5>Publications</h5>
 								<h6>Click on the name of the paper you are interested in to get more info and statistics</h6>
-								<br />
+								<br/>
 								<!--<table class="table table-bordered table-striped" id="file_table">-->
 								<table id="file_table">
 									<thead>

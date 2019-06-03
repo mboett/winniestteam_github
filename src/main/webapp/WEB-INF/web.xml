@@ -80,6 +80,11 @@
         <servlet-class>it.unipd.dei.clef.servlet.CreatePaperServlet</servlet-class>
     </servlet>
     
+    <servlet>
+        <servlet-name>LikeServlet</servlet-name>
+        <servlet-class>it.unipd.dei.clef.servlet.LikeServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -120,6 +125,16 @@
         <url-pattern>/jsp/signup</url-pattern>
     </servlet-mapping>
 	
+    <servlet-mapping>
+        <servlet-name>LikeServlet</servlet-name>
+        <url-pattern>/likes</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LikeServlet</servlet-name>
+        <url-pattern>/jsp/likes</url-pattern>
+    </servlet-mapping>
+    
 	<resource-ref>
 		<description>Connection pool to the database</description>
 		<res-ref-name>jdbc/clef</res-ref-name>

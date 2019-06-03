@@ -228,14 +228,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 				}
 			}
 		} catch(Throwable t) {
-			try {
-				StringWriter sw = new StringWriter();
-				PrintWriter pw = new PrintWriter(sw);
-				t.printStackTrace(pw);
-				m = new Message("Unexpected error.", "E5A1", sw.toString());
-			} catch (Exception e){
-				m = new Message("Printing Error Error.", "E5A1", e.getMessage());
-			}
+			m = new Message("Unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}

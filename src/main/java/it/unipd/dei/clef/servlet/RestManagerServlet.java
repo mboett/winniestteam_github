@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Manages the REST API for the different REST resources.
@@ -146,18 +148,18 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 			// the request URI is: /statistic/{id}
 			if (path.length() == 0 || path.equals("/")) {
-				m = new Message("Wrong format for URI /statistic/{id}: no {id} specified.",
+				m = new Message("Wrong format for URI rest request",
 								"E4A7", String.format("Requested URI: %s.", req.getRequestURI()));
 				res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				m.toJSON(res.getOutputStream());
 			} else {
 				
-				// the request URI is: /statistic/coathors/{id}
-				if (path.contains("coathors")) {
-					path = path.substring(path.lastIndexOf("coathors") + 3);
+				// the request URI is: /statistic/coauthors/{id}
+				if (path.contains("coauthors")) {
+					path = path.substring(path.lastIndexOf("coauthors") + 9);
 					
 					if (path.length() == 0 || path.equals("/")) {
-						m = new Message("Wrong format for URI /statistic/coathors/{id}: no {id} specified.",
+						m = new Message("Wrong format for URI /statistic/coauthors/{id}: no {id} specified.",
 										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
 						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 						m.toJSON(res.getOutputStream());
@@ -169,11 +171,10 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 								try {
 									Integer.parseInt(path.substring(1));
 									
-									// GET INFORMATION FROM THE DATABASE PIE (COAUTHORS)
-									// new EmployeeRestResource(req, res, getDataSource().getConnection()).searchEmployeeBySalary();
+									new StatisticRestResource(req, res, getDataSource().getConnection()).getCoauthorsStatistic();
 								} catch (NumberFormatException e) {
 									m = new Message(
-											"Wrong format for URI /statistic/coathors/{id}: {id} is not an integer.",
+											"Wrong format for URI /statistic/coauthors/{id}: {id} is not an integer.",
 											"E4A7", e.getMessage());
 									res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 									m.toJSON(res.getOutputStream());
@@ -181,7 +182,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 								break;
 							default:
-								m = new Message("Unsupported operation for URI /statistic/coathors/{id}.", "E4A5",
+								m = new Message("Unsupported operation for URI /statistic/coauthors/{id}.", "E4A5",
 												String.format("Requested operation %s.", method));
 								res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 								m.toJSON(res.getOutputStream());
@@ -191,7 +192,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 					
 				// the request URI is: /statistic/years/{id}
 				} else if ( path.contains("years")){
-					path = path.substring(path.lastIndexOf("years") + 4);
+					path = path.substring(path.lastIndexOf("years") + 5);
 					
 					if (path.length() == 0 || path.equals("/")) {
 						m = new Message("Wrong format for URI /statistic/years/{id}: no {id} specified.",

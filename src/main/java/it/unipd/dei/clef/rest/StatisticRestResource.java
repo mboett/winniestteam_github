@@ -78,10 +78,9 @@ public final class StatisticRestResource extends RestResource {
 
 			final int id = Integer.parseInt(path.substring(1));
 			
-			
 			// creates a new object for accessing the database and reads the statistic
 			stat = new FindYears(con, id).getYears();
-
+			
 			if(stat != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
 				stat.toJSON(res.getOutputStream());
@@ -92,7 +91,7 @@ public final class StatisticRestResource extends RestResource {
 			}
 			
 		} catch (Throwable t) {
-			m = new Message("Cannot read employee: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot read years statistic: unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}

@@ -3,19 +3,19 @@ var url = new URL(window.location.href);
 var id = url.searchParams.get("id");
 
 // Build Rest URL
-var restURL = "rest/statistic/years/"+id;
+var restURL = "../rest/statistic/years/"+id;
 
 // Ajax request
 $.ajax({
-  dataType: "json",
+  contentType: "application/json; charset=utf-8",
   url: restURL,
   success: displayHist
 });
 
-function displayHist( data ) {
-
+function displayHist(data) {
+	
 	// Log error message
-	if (data.message.error-code != null){
+	if (data.message != null){
 		console.log(data.message);
 		console.log(data.message.error-code);
 		console.log(data.message.error-details);

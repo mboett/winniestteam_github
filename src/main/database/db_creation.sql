@@ -68,11 +68,11 @@ COMMENT ON COLUMN ClefUser.Password IS 'The password of the user.';
 -- Like
 CREATE TABLE Likes(
 	Email VARCHAR,
-	PaperID INTEGER,
+	AuthorID INTEGER,
 
-	PRIMARY KEY (Email, PaperID),
+	PRIMARY KEY (Email, AuthorID),
 	FOREIGN KEY (Email) REFERENCES ClefUser(Email),
-	FOREIGN KEY (PaperID) REFERENCES Paper(PaperID)
+	FOREIGN KEY (AuthorID) REFERENCES Author(AuthorID)
 );
 
 COMMENT ON TABLE Likes IS 'Represents an user.';

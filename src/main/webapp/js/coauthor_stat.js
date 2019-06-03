@@ -27,7 +27,7 @@ function displayPie(data) {
 	var i;
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
-		label[i] = list[i].coauthor;
+		label[i] = decodeEntities(list[i].coauthor);
 		datas[i] = list[i].num;
 		idAuthors[i] = list[i].id; 
 	}
@@ -119,6 +119,26 @@ function displayPie(data) {
 
 function pieClickEvent(e, array){
 	console.log("Hello " + array[0] + e[0]);
-	var id = idAuthors[i];
-	window.location = "search-author?id="+id;
+	//var id = idAuthors[0];
+	window.location = "search-author?id=0";
 };
+
+var decodeEntities = (function() {
+  // this prevents any overhead from creating the object each time
+  var element = document.createElement('div');
+
+  function decodeHTMLEntities (str) {
+    if(str && typeof str === 'string') {
+      // strip script/html tags
+      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      element.innerHTML = str;
+      str = element.textContent;
+      element.textContent = '';
+    }
+
+    return str;
+  }
+
+  return decodeHTMLEntities;
+})();

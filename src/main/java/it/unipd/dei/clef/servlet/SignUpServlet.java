@@ -25,13 +25,13 @@ public class SignUpServlet extends AbstractDatabaseServlet{
         ClefUser clefUser = new ClefUser(request.getParameter("email"), request.getParameter("password"));
 
         try {
-              new SignUpDatabase(getDataSource().getConnection(), clefUser).addUser();
-			  LoginDatabase log_db = new LoginDatabase(getDataSource().getConnection(), clefUser);
-			  request.getSession().setAttribute("log", log_db.Login());
-              request.getRequestDispatcher("/jsp/signupsuccess.jsp").forward(request, response);
+          new SignUpDatabase(getDataSource().getConnection(), clefUser).addUser();
+			    LoginDatabase log_db = new LoginDatabase(getDataSource().getConnection(), clefUser);
+	        request.getSession().setAttribute("log", log_db.Login());
+          request.getRequestDispatcher("/jsp/signupsuccess.jsp").forward(request, response);
         }
         catch (SQLException ex) {
-              request.getRequestDispatcher("/jsp/signup.jsp").forward(request, response);
+          request.getRequestDispatcher("/jsp/signup.jsp").forward(request, response);
             }
     }
 }

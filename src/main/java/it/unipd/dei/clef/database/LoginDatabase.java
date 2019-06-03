@@ -54,7 +54,7 @@ public final class LoginDatabase {
 		return false;
 	}
 
-	public Strinf getUserEmail() throws SQLException {
+	public String getUserEmail() throws SQLException {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,6 +86,7 @@ public final class LoginDatabase {
 			con.close();
 		}
 
+		return user_email;
 	}
 
 }

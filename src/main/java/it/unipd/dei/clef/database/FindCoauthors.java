@@ -22,12 +22,13 @@ import java.util.Comparator;
 
 public final class FindCoauthors {
 
-	/**
+	/*
 	 * The SQL statement to be executed
 	 */
-	private static final String GET_PAPERS = "SELECT Paper.PaperID, Author.Name FROM Paper INNER JOIN Write ON Paper.PaperID = Write.PaperID INNER JOIN Author ON Write.AuthorID = Author.AuthorID WHERE Author.AuthorID = ?";
-	private static final String GET_COAUT = "SELECT Author.Name, Author.AuthorID FROM Author INNER JOIN Write ON Author.AuthorID = Write.AuthorID INNER JOIN Paper ON Write.PaperID = Paper.PaperID WHERE Paper.PaperID = ?";
 	
+	
+
+	private static final String GET_COAUT_OC = "SELECT CA.AuthorID, CA.Name, COUNT(*) FROM Author AS CA INNER JOIN Write AS W2 ON CA.AuthorID = W2.AuthorID INNER JOIN Paper AS P ON W2.PaperID = P.PaperID INNER JOIN Write AS W1 ON P.PaperID = W1.PaperID INNER JOIN Author AS SI ON W1.AuthorID = SI.AuthorID WHERE SI.AuthorID = ? AND CA.AuthorID <> SI.AuthorID GROUP BY CA.AuthorID";
 
 	/**
 	 * The connection to the database
@@ -46,90 +47,39 @@ public final class FindCoauthors {
 
 	
 	public CoauthorsStatistic getCoauthors() throws SQLException {
+	
 
-		PreparedStatement paperPstmt = null;
-		PreparedStatement coautPstmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		// The results of the search
-
-		String autName = null;
-		Author coauthor = null;
-		int coautID;
+		ArrayList<Author> coautArray = new ArrayList<>();
+		Author curCoaut = null;
+		int coaID = 0;
 		String coautName = null;
-		ArrayList<Author> coauthorArray = new ArrayList<>();
-		int temp = 0;
-		HashMap<Author, Integer> authorTable = null;
-		ArrayList<Integer> pubList = new ArrayList<>();
-		boolean firstRead = true;
-		try {
-			paperPstmt = con.prepareStatement(GET_PAPERS);
-			paperPstmt.setInt(1, authorID);
+		int occ = 0;
+		
 
-			rs = paperPstmt.executeQuery();
+
+		try {
+			pstmt = con.prepareStatement(GET_COAUT_OC);
+			pstmt.setInt(1, authorID);
+
+			rs = pstmt.executeQuery();
 			
-			// Get paperID of the author publications
+			
+
+			// Get coauthors with occuurencies
 			while (rs.next()) {
 
-				if (firstRead) {
-					autName = rs.getString("Author.Name");
-					firstRead = false;
-				}
-
-				pubList.add(rs.getInt("Paper.PaperID"));
-
+				coaID = rs.getInt(1);
+				coautName = rs.getString(2);
+				occ = rs.getInt(3);
+				curCoaut = new Author(authorID, coautName, occ);
+				coautArray.add(curCoaut);
 			}
 
 
-			coautPstmt = con.prepareStatement(GET_COAUT);
-
-			authorTable = new HashMap<>();
-    		
-
-			// Get all coaut for each publication
-			for (int i=0; i<pubList.size(); i++) {
-
-				coautPstmt.setInt(1, pubList.get(i));
-				rs = paperPstmt.executeQuery();
-
-				while (rs.next()) {
-
-					coautID = rs.getInt("Author.AuthorID");
-					
-
-					if (coautID != authorID) {
-
-						coautName = rs.getString("Author.Name");
-						coauthor = new Author(coautID, coautName, -1);
-						temp = authorTable.getOrDefault(coauthor, 0);
-						authorTable.put(coauthor, temp + 1);
-
-					}
-
-
-
-				}
-			}
-			List<Map.Entry<Author, Integer>> sortedTable = new ArrayList<>(authorTable.entrySet());
-			sortedTable.sort(Map.Entry.comparingByValue());
-
-
-			Map.Entry<Author, Integer> e;
-
-			for (int i=1; i<=MAX_CO; i++) {
-
-				if (i<=sortedTable.size())	{
-
-		    		e = sortedTable.get(sortedTable.size()-i);
-					
-					coautName = e.getKey().getName();
-					coautID = e.getKey().getID();
-					temp = e.getValue();
-					coauthor = new Author(coautID, coautName, temp);
-					coauthorArray.add(coauthor);
-				}
-				
-			}
 
 
 		} finally {
@@ -137,16 +87,15 @@ public final class FindCoauthors {
 				rs.close();
 			}
 
-			if (paperPstmt != null && coautPstmt != null) {
-				paperPstmt.close();
-				coautPstmt.close();
+			if (pstmt != null) {
+				pstmt.close();
 			}
 
 			con.close();
 		}
 		
-		// Build the result to be sent
-		CoauthorsStatistic stat = new CoauthorsStatistic(coauthorArray);
+		// Create the final object to be sent
+		CoauthorsStatistic stat = new CoauthorsStatistic(coautArray);
 		return stat;
 	}
 }

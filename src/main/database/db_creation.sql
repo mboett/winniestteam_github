@@ -77,7 +77,7 @@ CREATE TABLE Likes(
 
 COMMENT ON TABLE Likes IS 'Represents an user.';
 COMMENT ON COLUMN Likes.Email IS 'The email of the user.';
-COMMENT ON COLUMN Likes.PaperID IS 'The ID of the paper.';
+COMMENT ON COLUMN Likes.AuthorID IS 'The ID of the author.';
 
 -- Graph
 -- Stand alone table

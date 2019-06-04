@@ -22,7 +22,6 @@ public class DisLikeServlet extends AbstractDatabaseServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
       String email = null;
-		  String author_name = null;
       Likes likes = null;
 		  int authorID = -1;
 		  DisLikeAuthorDatabase disLikeObj = null;
@@ -33,9 +32,7 @@ public class DisLikeServlet extends AbstractDatabaseServlet{
 			     //Enumeration attributeNames = session.getAttributeNames();
 			     //String name = (String) attributeNames.nextElement();
 			     email = (String) session.getAttribute("email");
-			     author_name = request.getParameter("name");
-
-			     authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
+			     authorID = Integer.parseInt(request.getParameter("id"));
 
 			    likes = new Likes(email, authorID);
 

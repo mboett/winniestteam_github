@@ -47,8 +47,8 @@
 
 					<div class = "row">
 						<div class = "col-md-12">
-							<p class="text text-center">
-								return to the <a class="link" href="<c:url value="/jsp/home.jsp"/>">Home Page</a>.
+							<p id="redirect-message" class="text text-center">
+								You will be redirected to the Home Page in 5 seconds or you can click <a class="link" href="<c:url value="/jsp/home.jsp"/>">here</a>.
 							</p>
 						</div>
 					</div>
@@ -62,5 +62,6 @@
 
 		<!-- JavaScript -->
 		<script src="/winniest-team-project-1.00/js/formvalidation.js"></script>
+		<script src="/winniest-team-project-1.00/js/redirect.js"></script>
 	</body>
 </html>

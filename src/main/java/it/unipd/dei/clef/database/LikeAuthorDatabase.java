@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 
 public final class LikeAuthorDatabase {
 
-	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID, Liked) VALUES (?, ?, ?)";
+	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID) VALUES (?, ?)";
 	private static final String SELECT_LIKE = "SELECT Email, AuthorID AS check FROM Likes WHERE Email = ? AND AuthorID = ?";
 
 	private final Connection con;
@@ -37,7 +37,6 @@ public final class LikeAuthorDatabase {
 			pstmt_like = con.prepareStatement(INSERT_LIKE);
 			pstmt_like.setString(1, likes.getEmail());
 			pstmt_like.setInt(2, likes.getAuthorID());
-			pstmt_like.setBoolean(3, likes.getLiked());
 
 			pstmt_like.execute();
 

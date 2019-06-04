@@ -22,9 +22,6 @@
 
     <c:import url="/jsp/footer.jsp"/>
     <c:import url="/jsp/foot.jsp"/>
-  	<script src="/winniest-team-project-1.00/js/coauthor_stat.js"></script>
-  	<script src="/winniest-team-project-1.00/js/years_stat.js"></script>
-  	<script src="/winniest-team-project-1.00/js/code.js"></script>
 
   </body>
 </html>

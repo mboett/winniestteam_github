@@ -126,9 +126,18 @@
 				zommingRatio: 1 // disable zoom
 			}
 		});
+
+
+
 				
 		sigma.parsers.gexf('/winniest-team-project-1.00/js/data/total_graph.gexf', s,
-			function() {			
+			function() {
+
+				s.graph.nodes().forEach(function(n) {
+				n.label = decodeEntities(n.label);
+			});
+
+
 				s.graph.nodes().forEach(function(n) {
 				n.originalColor = n.color;
 			});

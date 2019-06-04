@@ -42,7 +42,7 @@
 						  </a>
 						</c:if>
 					  </h1>
-
+					  
 					<div class="row">
 						<div class = "col-md-8">
 							<div class="table-Responsive">

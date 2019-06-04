@@ -38,11 +38,13 @@ public final class SearchLikeDatabase {
 				id = rs.getInt("AuthorID");
 			}
 			
-			if(id != 0)	{
+			/*if(id != 0)	{
 				return true;
 			}
 			else
-				return false;
+				return false;*/
+			
+			return true;
 
 		} finally {
 

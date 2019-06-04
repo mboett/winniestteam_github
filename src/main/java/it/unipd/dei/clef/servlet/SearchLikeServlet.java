@@ -22,33 +22,33 @@ public class SearchLikeServlet extends AbstractDatabaseServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
 		String email = null;
-		String author_name = null;
 		Likes likes = null;
 		int authorID = -1;
 		boolean fav = false;
+		String temp = null;
 
 		try {
 			HttpSession session = request.getSession();
 			 //Enumeration attributeNames = session.getAttributeNames();
 			 //String name = (String) attributeNames.nextElement();
-			 email = (String) session.getAttribute("email");
-			 author_name = request.getParameter("name");
-
-			 authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
+			email = (String) session.getAttribute("email");
+			authorID = Integer.parseInt(request.getParameter("id"));
 			 
 			likes = new Likes(email, authorID);
 
-			fav = new SearchLikeDatabase(getDataSource().getConnection(), likes).searchAuthor();			
+			fav = new SearchLikeDatabase(getDataSource().getConnection(), likes).searchAuthor();	
 
         } catch (SQLException ex) {
               //request.getRequestDispatcher("/jsp/papers.jsp").forward(request, response);
               response.sendError(response.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
               return ;
             }
-			
+						
 		request.setAttribute("fav", fav);
 					
-		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
+		request.getRequestDispatcher("/jsp/author.jsp").forward(request, response);
+		
+		//request.getRequestDispatcher("search-author?id="+Integer.toString(authorID)).forward(request, response);
 		
 		//response.sendRedirect("search-author?id="+Integer.toString(authorID));
     }

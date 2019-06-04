@@ -8,7 +8,7 @@
 
 		<c:import url="/jsp/head.jsp"/>
 
-		<title>Sign up!</title>
+		<title>CLEF | Sign up!</title>
 
 	</head>
 
@@ -31,24 +31,26 @@
 				</div>
 			</header>
 
-			<div id="content">
-				<div class = "row align-items-start">
-					<div class = "col-md-4">
-					</div>
-					<div class = "col-md-4" id="signup-form">
-						<div id="signup-title">
-							Successfully signed up!
-						</div>
+			<div class="row align-items-center" id="content" style="height: 250px;">
+				<div class="col-md-12">
+					<div class = "row">
 						<div class = "col-md-4">
 						</div>
+						<div class = "col-md-4" id="signup-form">
+							<div id="signup-title">
+								Successfully signed up!
+							</div>
+							<div class = "col-md-4">
+							</div>
+						</div>
 					</div>
-				</div>
 
-				<div class = "row align-items-start">
-					<div class = "col-md-12">
-						<p class="text text-center">
-							return to the <a class="link" href="<c:url value="/jsp/home.jsp"/>">Home Page</a>.
-						</p>
+					<div class = "row">
+						<div class = "col-md-12">
+							<p class="text text-center">
+								return to the <a class="link" href="<c:url value="/jsp/home.jsp"/>">Home Page</a>.
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>

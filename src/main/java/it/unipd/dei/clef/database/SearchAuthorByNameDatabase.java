@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Searches authors by their name.
- * 
+ *
  * @author Winniest Team
  * @version 1.00
  * @since 1.00
@@ -36,7 +36,7 @@ public final class SearchAuthorByNameDatabase {
 
 	/**
 	 * Creates a new object for searching authors by ID.
-	 * 
+	 *
 	 * @param con
 	 *            the connection to the database.
 	 * @param authorName
@@ -49,9 +49,9 @@ public final class SearchAuthorByNameDatabase {
 
 	/**
 	 * Searches authors by their ID.
-	 * 
+	 *
 	 * @return an author with all the papers that he has wrote.
-	 * 
+	 *
 	 * @throws SQLException
 	 *             if any error occurs while searching for authors.
 	 */
@@ -63,17 +63,19 @@ public final class SearchAuthorByNameDatabase {
 		// The results of the search
 		int id = 0;
 		boolean firstRead = true;
-		
+
 		try {
-			
+
 			pstmt = con.prepareStatement(STATEMENT);
 			pstmt.setString(1, name);
 
 			rs = pstmt.executeQuery();
-			
-			rs.next();
-			id = rs.getInt("AuthorID");
-			
+
+			while (rs.next()) {
+				id = rs.getInt("AuthorID");
+			}
+
+
 		} finally {
 			if (rs != null) {
 				rs.close();

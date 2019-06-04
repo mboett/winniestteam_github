@@ -45,8 +45,23 @@
 			</c:if>
 			<c:if test="${sessionScope.log}">
 		    <form action="logout" method="POST">
-						Logged In as <c:out value="${sessionScope.email}"/>
-		        <button type="submit" class="btn btn-primary btn-sm btn-block" id="signin-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+				<p id="login-as"> 
+					Logged in as <a class="link" id="user-mail" href="<c:url value="/jsp/user.jsp"/>"><c:out value="${sessionScope.email}"/> <i class="fas fa-user"></i>	</a>
+					<div class="row">
+						<div class="col-md-6">
+						</div>
+						<div class="col-md-6">
+							<div class="user-content">
+								<div class="userMeasuringWrapper">
+									<a href="<c:url value="/jsp/user.jsp"/>"
+										<button type="submit" class="btn btn-primary btn-sm btn-block" id="signin-button">Favourites <i class="fas fa-heart"></i></button>
+									</a>
+									<button type="submit" class="btn btn-primary btn-sm btn-block" id="signin-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p>
 		    </form>
 			</c:if>
 		</div>

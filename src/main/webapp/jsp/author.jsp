@@ -9,7 +9,14 @@
 
 		<c:import url="/jsp/head.jsp"/>
 
-		<title>Authors</title>
+		<title>
+			<c:if test='${not empty author}'>
+				CLEF | <c:out value="${author.name}"/>
+			</c:if>
+			<c:if test='${empty author}'>
+				Not Found
+			</c:if>
+		</title>
 
 	</head>
 
@@ -22,14 +29,26 @@
 			<div class="content">
 			<c:if test="${sessionScope.log}">
 				<c:if test='${not empty author}'>
-					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/> <button><i class="far fa-heart"></i></button></h1>
+
+					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
+						<c:if test="${empty sessionScope.like}">
+							<a href="like?name=<c:out value="${author.name}"/>">
+								<button><i class="far fa-heart"></i></button>
+							</a>
+						</c:if>
+						<c:if test="${not empty sessionScope.like}">
+							<a href="like?name=<c:out value="${author.name}"/>">
+								<button><i class="fas fa-heart"></i></button>
+							</a>
+						</c:if>
+					</h1>
 
 					<div class="row">
 						<div class = "col-md-8">
 							<div class="table-Responsive">
 								<h5>Publications</h5>
 								<h6>Click on the name of the paper you are interested in to get more info and statistics</h6>
-								<br />
+								<br/>
 								<!--<table class="table table-bordered table-striped" id="file_table">-->
 								<table id="file_table">
 									<thead>
@@ -62,7 +81,7 @@
 						</div>
 					</div>
 				</c:if>
-				</c:if>
+			</c:if>
 
 				<c:if test="${not sessionScope.log}">
 					<c:if test='${not empty author}'>

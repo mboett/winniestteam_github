@@ -62,9 +62,9 @@ public class FindYears {
 				year = rs.getInt(1);
 				occ = rs.getInt(2);
 				
-				if (firstYear){
+				if (firstYear) {
 					firstYear = false;
-					checkYear = year + 1;
+					checkYear = year;
 				}
 				
 				// Insert years with zero pubblications

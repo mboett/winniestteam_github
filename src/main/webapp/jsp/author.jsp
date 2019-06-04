@@ -31,12 +31,12 @@
 				<c:if test='${not empty author}'>
 					
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-						<c:if test="${not fav}">
+						<c:if test="${not favo}">
 						  <a href="like?id=<c:out value="${param.id}"/>">
 							<button class="heart btn"><i class="far fa-heart"></i></button>
 						  </a>
 						</c:if>
-						<c:if test="${fav}">
+						<c:if test="${favo}">
 						  <a href="dislike?id=<c:out value="${param.id}"/>">
 							<button class="heart btn"><i class="fas fa-heart"></i></button>
 						  </a>

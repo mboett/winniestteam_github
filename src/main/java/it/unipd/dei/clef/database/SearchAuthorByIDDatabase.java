@@ -2,6 +2,7 @@ package it.unipd.dei.clef.database;
 
 import it.unipd.dei.clef.resource.Author;
 import it.unipd.dei.clef.resource.Paper;
+import it.unipd.dei.clef.resource.Likes;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +24,7 @@ public final class SearchAuthorByIDDatabase {
 	 * The SQL statement to be executed
 	 */
 	private static final String STATEMENT = "SELECT Author.AuthorID, Paper.PaperID, Author.Name, Paper.Title, Paper.Year, Paper.MDate, Paper.Key, Paper.DOI FROM Author INNER JOIN write ON Author.AuthorID = Write.AuthorID INNER JOIN Paper on Write.PaperID = Paper.PaperID WHERE Author.AuthorID = ? ORDER BY Paper.Year ASC";
+	private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Likes WHERE Email = ? AND AuthorID = ?";
 
 	/**
 	 * The connection to the database
@@ -33,6 +35,8 @@ public final class SearchAuthorByIDDatabase {
 	 * The AuthorID of the employee
 	 */
 	private final int authorID;
+	
+	private final Likes likes;
 
 	/**
 	 * Creates a new object for searching authors by ID.
@@ -41,10 +45,13 @@ public final class SearchAuthorByIDDatabase {
 	 *            the connection to the database.
 	 * @param id
 	 *            the id of the author.
+	 * @param likes
+	 *            the id of the author.
 	 */
-	public SearchAuthorByIDDatabase(final Connection con, final int id) {
+	public SearchAuthorByIDDatabase(final Connection con, final int id, Likes likes) {
 		this.con = con;
 		this.authorID = id;
+		this.likes = likes;
 	}
 
 	/**
@@ -95,5 +102,39 @@ public final class SearchAuthorByIDDatabase {
 		}
 
 		return author;
+	}
+	
+	public boolean searchAuthor() throws SQLException {
+
+		PreparedStatement pstmt_like = null;
+		ResultSet rs = null;
+		int id = 0;
+
+		try {
+
+			pstmt_like = con.prepareStatement(SELECT_AUTHOR);
+			pstmt_like.setString(1, likes.getEmail());
+			pstmt_like.setInt(2, likes.getAuthorID());
+			rs = pstmt_like.executeQuery();
+			
+			while (rs.next()) {
+				id = rs.getInt("AuthorID");
+			}
+			
+			if(id != 0)	{
+				return true;
+			}
+			else
+				return false;
+
+		} finally {
+
+			if (pstmt_like != null) {
+				pstmt_like.close();
+			}
+
+			con.close();
+		}
+
 	}
 }

@@ -7,6 +7,7 @@ import it.unipd.dei.clef.resource.Author;
 import it.unipd.dei.clef.resource.Paper;
 import it.unipd.dei.clef.resource.Message;
 import it.unipd.dei.clef.resource.YearOccurence;
+import it.unipd.dei.clef.resource.Likes;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 
@@ -40,6 +42,9 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 		// Request parameter
 		int ID;
 		Message m = null;
+		Likes likes = null;
+		boolean fav = false;
+		String email = null;
 
 		// Model
 		Author author = null;
@@ -50,9 +55,17 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 		
 			// Retrieves the request parameter
 			ID = Integer.parseInt(req.getParameter("id"));
+			
+			HttpSession session = req.getSession();
+			email = (String) session.getAttribute("email");
+			
+			likes = new Likes(email, ID);
+
+			fav = new SearchAuthorByIDDatabase(getDataSource().getConnection(), ID, likes)
+					.searchAuthor();	
 
 			// Creates a new object for accessing the database and searching the author
-			author = new SearchAuthorByIDDatabase(getDataSource().getConnection(), ID)
+			author = new SearchAuthorByIDDatabase(getDataSource().getConnection(), ID, likes)
 					.searchAuthorByID();
 			
 			m = new Message("Author successfully searched.");
@@ -69,6 +82,7 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 		// Stores the author and the message as a request attribute
 		req.setAttribute("author", author);
 		req.setAttribute("message", m);
+		req.setAttribute("favo", fav);
 		
 		// Forwards the control to the author JSP
 		req.getRequestDispatcher("/jsp/author.jsp").forward(req, res);

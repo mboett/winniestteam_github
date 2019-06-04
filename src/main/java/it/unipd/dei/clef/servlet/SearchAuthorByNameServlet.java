@@ -56,8 +56,8 @@ public final class SearchAuthorByNameServlet extends AbstractDatabaseServlet {
 					.searchAuthorByName();
 
 			// Creates a new object for accessing the database and searching the author
-			author = new SearchAuthorByIDDatabase(getDataSource().getConnection(), authorID)
-					.searchAuthorByID();
+			//author = new SearchAuthorByIDDatabase(getDataSource().getConnection(), authorID)
+				//	.searchAuthorByID();
 			
 			m = new Message("Author successfully searched.");
 			

@@ -38,7 +38,7 @@
 					</c:if>
 					<c:if test="${favorite}">
 						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-							<a href="dislike?name=<c:out value="${author.name}"/>">
+							<a href="dislike?id=<c:out value="${param.id}"/>">
 								<button class="heart btn"><i class="fas fa-heart"></i></button>
 							</a>
 						</h1>

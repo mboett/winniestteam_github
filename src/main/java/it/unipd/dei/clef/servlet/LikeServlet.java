@@ -22,7 +22,7 @@ public class LikeServlet extends AbstractDatabaseServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
       String email = null;
-		  //String author_name = null;
+		  String author_name = null;
       Likes likes = null;
 		  int authorID = -1;
 		  LikeAuthorDatabase likeObj = null;
@@ -33,9 +33,9 @@ public class LikeServlet extends AbstractDatabaseServlet{
 			     //Enumeration attributeNames = session.getAttributeNames();
 			     //String name = (String) attributeNames.nextElement();
 			     email = (String) session.getAttribute("email");
-			     authorID = Integer.parseInt(request.getParameter("id"));
+			     author_name = request.getParameter("name");
 
-			     //authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
+			     authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
 
 			     likes = new Likes(email, authorID);
 
@@ -44,7 +44,9 @@ public class LikeServlet extends AbstractDatabaseServlet{
 			     request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-              request.getRequestDispatcher("/jsp/papers.jsp").forward(request, response);
+              //request.getRequestDispatcher("/jsp/papers.jsp").forward(request, response);
+              response.sendError(response.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+              return ;
             }
     }
 }

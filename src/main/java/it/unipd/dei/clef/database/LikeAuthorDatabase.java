@@ -31,9 +31,9 @@ public final class LikeAuthorDatabase {
 
 			pstmt_like = con.prepareStatement(INSERT_LIKE);
 			pstmt_like.setString(1, likes.getEmail());
-			pstmt_like.setInt(1, likes.getAuthorID());
+			pstmt_like.setInt(2, likes.getAuthorID());
 
-			pstmt_like.executeQuery();
+			pstmt_like.execute();
 
 		} finally {
 

@@ -31,7 +31,10 @@
 				<c:if test='${not empty author}'>
 
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-					<a href="like?id=<c:out value="${'author.id'}"/>"><c:out value="${author.id}"/> <button><i class="far fa-heart"></i></button></a></h1>
+						<a href="like?name=<c:out value="${author.name}"/>">
+							<button><i class="far fa-heart"></i></button>
+						</a>
+					</h1>
 
 					<div class="row">
 						<div class = "col-md-8">

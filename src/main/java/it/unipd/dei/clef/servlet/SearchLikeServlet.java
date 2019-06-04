@@ -46,8 +46,10 @@ public class SearchLikeServlet extends AbstractDatabaseServlet{
               return ;
             }
 			
-		request.getSession().setAttribute("fav", fav);
+		request.setAttribute("fav", fav);
 					
 		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
+		
+		//response.sendRedirect("search-author?id="+Integer.toString(authorID));
     }
 }

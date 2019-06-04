@@ -44,8 +44,10 @@ public class DisLikeServlet extends AbstractDatabaseServlet{
               return ;
             }
 			
-		request.getSession().setAttribute("like", null);
+		//request.getSession().setAttribute("like", null);
 					
-		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
+		//request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
+		
+		response.sendRedirect("search-author?id="+Integer.toString(authorID));
     }
 }

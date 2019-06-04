@@ -33,7 +33,6 @@ public class LikeServlet extends AbstractDatabaseServlet{
 			email = (String) session.getAttribute("email");
 			authorID = Integer.parseInt(request.getParameter("id"));
 			likes = new Likes(email, authorID);
-
 			new LikeAuthorDatabase(getDataSource().getConnection(), likes).likeAuthor();
 
         } catch (SQLException ex) {
@@ -42,6 +41,8 @@ public class LikeServlet extends AbstractDatabaseServlet{
               return ;
             }
 								
-		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
+		//request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
+		
+		response.sendRedirect("search-author?id="+Integer.toString(authorID));
     }
 }

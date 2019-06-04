@@ -32,16 +32,16 @@
 					
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
 						<c:if test="${not fav}">
-							<a href="like?name=<c:out value="${param.id}"/>">
-								<button class="heart btn"><i class="far fa-heart"></i></button>
-							</a>
+						  <a href="like?id=<c:out value="${param.id}"/>">
+							<button class="heart btn"><i class="far fa-heart"></i></button>
+						  </a>
 						</c:if>
 						<c:if test="${fav}">
-							<a href="dislike?name=<c:out value="${param.id}"/>">
-								<button class="heart btn"><i class="fas fa-heart"></i></button>
-							</a>
+						  <a href="dislike?id=<c:out value="${param.id}"/>">
+							<button class="heart btn"><i class="fas fa-heart"></i></button>
+						  </a>
 						</c:if>
-					</h1>
+					  </h1>
 
 					<div class="row">
 						<div class = "col-md-8">

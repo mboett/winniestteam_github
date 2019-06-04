@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 
 public final class SearchLikeDatabase {
 
-	private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Likes WHERE Email = ?";
+	private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Likes WHERE Email = ? AND AuthorID = ?";
 
 	private final Connection con;
 
@@ -31,6 +31,7 @@ public final class SearchLikeDatabase {
 
 			pstmt_like = con.prepareStatement(SELECT_AUTHOR);
 			pstmt_like.setString(1, likes.getEmail());
+			pstmt_like.setInt(2, likes.getAuthorID());
 			rs = pstmt_like.executeQuery();
 			
 			while (rs.next()) {
@@ -40,7 +41,8 @@ public final class SearchLikeDatabase {
 			if(id != 0)	{
 				return true;
 			}
-			return false;
+			else
+				return false;
 
 		} finally {
 

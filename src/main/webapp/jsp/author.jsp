@@ -31,9 +31,16 @@
 				<c:if test='${not empty author}'>
 
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-						<a href="like?name=<c:out value="${author.name}"/>">
-							<button><i class="far fa-heart"></i></button>
-						</a>
+						<c:if test="${empty sessionScope.like}">
+							<a href="like?name=<c:out value="${author.name}"/>">
+								<button><i class="far fa-heart"></i></button>
+							</a>
+						</c:if>
+						<c:if test="${not empty sessionScope.like}">
+							<a href="like?name=<c:out value="${author.name}"/>">
+								<button><i class="fas fa-heart"></i></button>
+							</a>
+						</c:if>
 					</h1>
 
 					<div class="row">

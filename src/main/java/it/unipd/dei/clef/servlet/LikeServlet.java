@@ -37,16 +37,18 @@ public class LikeServlet extends AbstractDatabaseServlet{
 
 			     authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
 
-			     likes = new Likes(email, authorID);
+			    likes = new Likes(email, authorID);
 
 				new LikeAuthorDatabase(getDataSource().getConnection(), likes).likeAuthor();
-
-			     request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 
         } catch (SQLException ex) {
               //request.getRequestDispatcher("/jsp/papers.jsp").forward(request, response);
               response.sendError(response.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
               return ;
             }
+			
+		request.getSession().setAttribute("like", likes.getAuthorID());
+					
+		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
     }
 }

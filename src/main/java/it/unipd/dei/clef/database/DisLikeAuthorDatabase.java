@@ -11,39 +11,33 @@ import java.sql.ResultSet;
 public final class DisLikeAuthorDatabase {
 
 	private static final String DELETE_LIKE = "DELETE FROM Likes WHERE AuthorID = ?";
-	private static final String SELECT_DISLIKE = "SELECT Email, AuthorID AS check FROM Likes WHERE Email = ? AND AuthorID = ?";
+	//private static final String SELECT_DISLIKE = "SELECT Email, AuthorID AS check FROM Likes WHERE Email = ? AND AuthorID = ?";
 	//private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Author WHERE Name = ?";
 
 	private final Connection con;
 
-	private final Likes likes;
-
-	private final String email;
-
 	private final int ID;
 
-	public DisLikeAuthorDatabase(final Connection con, final Likes likes, final String email, final int ID) {
+	public DisLikeAuthorDatabase(final Connection con, final int ID) {
 		this.con = con;
-		this.likes = likes;
-		this.email = email;
 		this.ID = ID;
 	}
 
 	public void disLikeAuthor() throws SQLException {
 
-		PreparedStatement pstmt_like = null;
+		PreparedStatement pstmt_dislike = null;
 
 		try {
 
-			pstmt_like = con.prepareStatement(DELETE_LIKE);
-			pstmt_like.setInt(1, likes.getAuthorID());
+			pstmt_dislike = con.prepareStatement(DELETE_LIKE);
+			pstmt_dislike.setInt(1, ID);
 
-			pstmt_like.execute();
+			pstmt_dislike.execute();
 
 		} finally {
 
-			if (pstmt_like != null) {
-				pstmt_like.close();
+			if (pstmt_dislike != null) {
+				pstmt_dislike.close();
 			}
 
 			con.close();
@@ -51,7 +45,7 @@ public final class DisLikeAuthorDatabase {
 
 	}
 
-	public boolean falseLikedAuthor() throws SQLException {
+	/*public boolean falseLikedAuthor() throws SQLException {
 
 		PreparedStatement pstmt_disliked = null;
     ResultSet rs_disliked = null;
@@ -86,7 +80,7 @@ public final class DisLikeAuthorDatabase {
     return true;
   }
 
-/*
+
 	public int findAuthor() throws SQLException {
 
 		PreparedStatement pstmt_author = null;

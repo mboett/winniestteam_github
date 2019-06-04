@@ -22,7 +22,6 @@ public class LikeServlet extends AbstractDatabaseServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
       String email = null;
-		  String author_name = null;
       Likes likes = null;
 		  int authorID = -1;
 
@@ -31,17 +30,16 @@ public class LikeServlet extends AbstractDatabaseServlet{
 			     HttpSession session = request.getSession();
 			     //Enumeration attributeNames = session.getAttributeNames();
 			     //String name = (String) attributeNames.nextElement();
-           LikeAuthorDatabase check = new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID);
-			     email = (String) session.getAttribute("email");
-			     author_name = request.getParameter("name");
 
-			     authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
+			     email = (String) session.getAttribute("email");
+			     authorID = Integer.parseInt(request.getParameter("id"));
 
 			     likes = new Likes(email, authorID);
+           LikeAuthorDatabase check = new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID);
+           request.setAttribute("favorite", check.trueLikedAuthor());
 
 				   new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID).likeAuthor();
 
-           request.setAttribute("favorite", check.trueLikedAuthor());
            request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
 
         } catch (SQLException ex) {

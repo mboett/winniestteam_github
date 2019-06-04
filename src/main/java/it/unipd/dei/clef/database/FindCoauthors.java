@@ -72,7 +72,7 @@ public final class FindCoauthors {
 				coaID = rs.getInt(1);
 				coautName = rs.getString(2);
 				occ = rs.getInt(3);
-				curCoaut = new Coauthor(authorID, coautName, occ);
+				curCoaut = new Coauthor(coaID, coautName, occ);
 				coautArray.add(curCoaut);
 			}
 

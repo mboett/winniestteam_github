@@ -12,6 +12,8 @@ $.ajax({
   success: displayPie
 });
 
+var idAuthors = [];
+
 function displayPie(data) {
 		
 	// Log error message
@@ -23,7 +25,7 @@ function displayPie(data) {
 	
 	var datas = [];
 	var label = [];
-	var idAuthors = [];
+	//var idAuthors = [];
 	var i;
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
@@ -32,13 +34,13 @@ function displayPie(data) {
 		idAuthors[i] = list[i].id; 
 	}
 
-	let myChart = document.getElementById('myChart-B').getContext('2d');
+	let ctx = document.getElementById('myChart-B').getContext('2d');
 
 	Chart.defaults.global.defaultFontFamily = 'Lato';
 	Chart.defaults.global.defaultFontSize = 18;
 	Chart.defaults.global.defaultFontColor = '#303234';
 
-	let massPopChart = new Chart(myChart, {
+	let massPopChart = new Chart(ctx, {
 	type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
 	data:{
 	  labels: label,
@@ -118,9 +120,11 @@ function displayPie(data) {
 };
 
 function pieClickEvent(e, array){
-	console.log("Hello " + array[0] + e[0]);
-	//var id = idAuthors[0];
-	window.location = "search-author?id=0";
+	
+	var ind = array[0]._index;
+	
+	
+	window.location = "search-author?id="+idAuthors[ind];
 };
 
 var decodeEntities = (function() {

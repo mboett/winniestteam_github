@@ -46,6 +46,7 @@ header	{
 
 #signin-button	{
 	width:100%;
+	margin-bottom: 5px;
 }
 
 .btn.btn-primary:hover	{
@@ -110,6 +111,19 @@ header	{
 	display: none;
 	overflow: hidden;
 	width: 15.7%;
+	height: 0;
+	background-color: #EEEEEE;
+	border-radius: 4px;
+	position: absolute;
+	z-index: 1;
+	color: #303234;
+	-webkit-transition: height .5s;
+	transition: height .5s;
+}
+
+.user-content {
+	display: none;
+	overflow: hidden;
 	height: 0;
 	background-color: #EEEEEE;
 	border-radius: 4px;

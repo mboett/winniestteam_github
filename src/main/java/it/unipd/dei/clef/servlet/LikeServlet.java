@@ -38,14 +38,14 @@ public class LikeServlet extends AbstractDatabaseServlet{
            LikeAuthorDatabase check = new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID);
            request.setAttribute("favorite", check.trueLikedAuthor());
 
-				   new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID).likeAuthor();
+           new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID).likeAuthor();
 
            request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
 
         } catch (SQLException ex) {
               //request.getRequestDispatcher("/jsp/papers.jsp").forward(request, response);
-              response.sendError(response.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
-              return ;
+              request.setAttribute("favorite", true);
+              request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
           }
     }
 }

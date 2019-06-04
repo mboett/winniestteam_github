@@ -29,19 +29,20 @@
 			<div class="content">
 			<c:if test="${sessionScope.log}">
 				<c:if test='${not empty author}'>
-
-					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-						<c:if test="${sessionScope.like ne author.name}">
+					<c:if test="${not favorite}">
+						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
 							<a href="like?name=<c:out value="${author.name}"/>">
 								<button class="heart btn"><i class="far fa-heart"></i></button>
 							</a>
-						</c:if>
-						<c:if test="${sessionScope.like eq author.name}">
+						</h1>
+					</c:if>
+					<c:if test="${favorite}">
+						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
 							<a href="dislike?name=<c:out value="${author.name}"/>">
 								<button class="heart btn"><i class="fas fa-heart"></i></button>
 							</a>
-						</c:if>
-					</h1>
+						</h1>
+					</c:if>
 
 					<div class="row">
 						<div class = "col-md-8">
@@ -157,9 +158,9 @@
 			  </div> -->
 			</div>
 
-			<c:import url="/jsp/footer.jsp"/>
-		</div>
+		<c:import url="/jsp/footer.jsp"/>
 
+    <c:import url="/jsp/foot.jsp"/>
     <c:import url="/jsp/foot.jsp"/>
 	<script src="/winniest-team-project-1.00/js/coauthor_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/years_stat.js"></script>

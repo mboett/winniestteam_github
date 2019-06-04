@@ -39,7 +39,7 @@ public class LikeServlet extends AbstractDatabaseServlet{
 
 			     likes = new Likes(email, authorID);
 
-           new LikeAuthorDatabase(getDataSource().getConnection(), likes).likeAuthor();
+				new LikeAuthorDatabase(getDataSource().getConnection(), likes).likeAuthor();
 
 			     request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 

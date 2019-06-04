@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 
 public final class LikeAuthorDatabase {
 
-	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID) VALUES (?, ?)";
+	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, PaperID) VALUES (?, ?)";
 	//private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Author WHERE Name = ?";
 
 	private final Connection con;

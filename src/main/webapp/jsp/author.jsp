@@ -31,7 +31,7 @@
 				<c:if test='${not empty author}'>
 					<c:if test="${not favorite}">
 						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-							<a href="like?name=<c:out value="${author.name}"/>">
+							<a href="like?name=<c:out value="${param.id}"/>">
 								<button class="heart btn"><i class="far fa-heart"></i></button>
 							</a>
 						</h1>

@@ -25,30 +25,33 @@ public class DisLikeServlet extends AbstractDatabaseServlet{
 		  String author_name = null;
       Likes likes = null;
 		  int authorID = -1;
-		  DisLikeAuthorDatabase disLikeObj = null;
 
       try {
 
 			     HttpSession session = request.getSession();
 			     //Enumeration attributeNames = session.getAttributeNames();
 			     //String name = (String) attributeNames.nextElement();
+
+           DisLikeAuthorDatabase check = new DisLikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID);
 			     email = (String) session.getAttribute("email");
 			     author_name = request.getParameter("name");
 
 			     authorID = new SearchAuthorByNameDatabase(getDataSource().getConnection(), author_name).searchAuthorByName();
 
-			    likes = new Likes(email, authorID);
+           likes = new Likes(email, authorID, check.falseLikedAuthor());
 
-				new DisLikeAuthorDatabase(getDataSource().getConnection(), likes).disLikeAuthor();
+				   new DisLikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID).disLikeAuthor();
+
+           request.setAttribute("favorite", check.falseLikedAuthor());
 
         } catch (SQLException ex) {
               //request.getRequestDispatcher("/jsp/papers.jsp").forward(request, response);
               response.sendError(response.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
               return ;
             }
-			
+
 		request.getSession().setAttribute("like", null);
-					
+
 		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
     }
 }

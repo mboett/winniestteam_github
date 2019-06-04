@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
 
 public class LikeServlet extends AbstractDatabaseServlet{
 
@@ -23,22 +24,22 @@ public class LikeServlet extends AbstractDatabaseServlet{
 
       String email = null;
       Likes likes = null;
-		  int authorID = -1;
+		int authorID = -1;
 
       try {
 
-			     HttpSession session = request.getSession();
-			     //Enumeration attributeNames = session.getAttributeNames();
-			     //String name = (String) attributeNames.nextElement();
+		 HttpSession session = request.getSession();
+		 //Enumeration attributeNames = session.getAttributeNames();
+		 //String name = (String) attributeNames.nextElement();
 
-			     email = (String) session.getAttribute("email");
-			     authorID = Integer.parseInt(request.getParameter("id"));
+		 email = (String) session.getAttribute("email");
+		 authorID = Integer.parseInt(request.getParameter("id"));
 
-			     likes = new Likes(email, authorID);
-           LikeAuthorDatabase check = new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID);
-           request.setAttribute("favorite", check.trueLikedAuthor());
+		 likes = new Likes(email, authorID);
+		LikeAuthorDatabase check = new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID);
+		request.setAttribute("favorite", check.trueLikedAuthor());
 
-				   new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID).likeAuthor();
+		   new LikeAuthorDatabase(getDataSource().getConnection(), likes, email, authorID).likeAuthor();
 
            request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
 

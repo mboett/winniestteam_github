@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public final class LikeAuthorDatabase {
 
 	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID) VALUES (?, ?)";
-	private static final String SELECT_LIKE = "SELECT Email, AuthorID AS check FROM Likes WHERE Email = ? AND AuthorID = ?";
+	private static final String SELECT_LIKE = "SELECT Email, AuthorID FROM Likes WHERE Email = ? AND AuthorID = ?";
 
 	private final Connection con;
 

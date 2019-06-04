@@ -66,7 +66,7 @@ public final class ShowFavouritesServlet extends AbstractDatabaseServlet {
 		req.setAttribute("message", m);
 		
 		// Forwards the control to the author JSP
-		req.getRequestDispatcher("/jsp/author.jsp").forward(req, res);
+		req.getRequestDispatcher("/jsp/user.jsp").forward(req, res);
 	
 	}
 

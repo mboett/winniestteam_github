@@ -22,7 +22,7 @@ public final class ShowFavouritesDatabase {
 	/**
 	 * The SQL statement to be executed
 	 */
-	private static final String STATEMENT = "SELECT Author.Name FROM Author INNER JOIN Likes ON Author.AuthorID = Likes.AuthorID INNER JOIN ClefUser on Likes.Email = ClefUser.Email WHERE ClefUser.Email = ?";
+	private static final String STATEMENT = "SELECT Author.Name, Author.AuthorID, ClefUser.email, ClefUser.password FROM Author INNER JOIN Likes ON Author.AuthorID = Likes.AuthorID INNER JOIN ClefUser on Likes.Email = ClefUser.Email WHERE ClefUser.Email = ?";
 
 	/**
 	 * The connection to the database

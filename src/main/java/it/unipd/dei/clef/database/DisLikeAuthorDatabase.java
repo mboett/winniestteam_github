@@ -11,16 +11,22 @@ import java.sql.ResultSet;
 public final class DisLikeAuthorDatabase {
 
 	private static final String DELETE_LIKE = "DELETE FROM Likes WHERE AuthorID = ?";
+	private static final String SELECT_DISLIKE = "SELECT Email, AuthorID AS check FROM Likes WHERE Email = ? AND AuthorID = ?";
 	//private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Author WHERE Name = ?";
 
 	private final Connection con;
 
 	private final Likes likes;
 
-	public DisLikeAuthorDatabase(final Connection con, final Likes likes) {
+	private final String email;
+
+	private final int ID;
+
+	public DisLikeAuthorDatabase(final Connection con, final Likes likes, final String email, final int ID) {
 		this.con = con;
 		this.likes = likes;
-		//this.author_name = author_name;
+		this.email = email;
+		this.ID = ID;
 	}
 
 	public void disLikeAuthor() throws SQLException {
@@ -44,6 +50,41 @@ public final class DisLikeAuthorDatabase {
 		}
 
 	}
+
+	public boolean falseLikedAuthor() throws SQLException {
+
+		PreparedStatement pstmt_disliked = null;
+    ResultSet rs_disliked = null;
+
+    try {
+
+      pstmt_disliked = con.prepareStatement(SELECT_DISLIKE);
+			pstmt_disliked.setString(1, email);
+			pstmt_disliked.setInt(2, ID);
+      rs_disliked = pstmt_disliked.executeQuery();
+
+      while (rs_disliked.next()) {
+        if (rs_disliked.getInt("check") == 1) {
+					rs_disliked.close();
+					return false;
+				}
+      }
+
+    } finally {
+
+      if (rs_disliked != null) {
+        rs_disliked.close();
+      }
+
+      if (pstmt_disliked != null) {
+        pstmt_disliked.close();
+      }
+
+      con.close();
+    }
+
+    return true;
+  }
 
 /*
 	public int findAuthor() throws SQLException {

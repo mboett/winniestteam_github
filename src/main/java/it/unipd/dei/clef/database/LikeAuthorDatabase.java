@@ -10,17 +10,22 @@ import java.sql.ResultSet;
 
 public final class LikeAuthorDatabase {
 
-	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID) VALUES (?, ?)";
-	//private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Author WHERE Name = ?";
+	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID, Liked) VALUES (?, ?, ?)";
+	private static final String SELECT_LIKE = "SELECT Email, AuthorID AS check FROM Likes WHERE Email = ? AND AuthorID = ?";
 
 	private final Connection con;
 
 	private final Likes likes;
 
-	public LikeAuthorDatabase(final Connection con, final Likes likes) {
+	private final String email;
+
+	private final int ID;
+
+	public LikeAuthorDatabase(final Connection con, final Likes likes, final String email, final int ID) {
 		this.con = con;
 		this.likes = likes;
-		//this.author_name = author_name;
+		this.email = email;
+		this.ID = ID;
 	}
 
 	public void likeAuthor() throws SQLException {
@@ -32,6 +37,7 @@ public final class LikeAuthorDatabase {
 			pstmt_like = con.prepareStatement(INSERT_LIKE);
 			pstmt_like.setString(1, likes.getEmail());
 			pstmt_like.setInt(2, likes.getAuthorID());
+			pstmt_like.setBoolean(3, likes.getLiked());
 
 			pstmt_like.execute();
 
@@ -46,6 +52,43 @@ public final class LikeAuthorDatabase {
 
 	}
 
+	public boolean trueLikedAuthor() throws SQLException {
+
+		PreparedStatement pstmt_liked = null;
+    ResultSet rs_liked = null;
+
+    try {
+
+      pstmt_liked = con.prepareStatement(SELECT_LIKE);
+			pstmt_liked.setString(1, email);
+			pstmt_liked.setInt(2, ID);
+      rs_liked = pstmt_liked.executeQuery();
+
+      while (rs_liked.next()) {
+        if (rs_liked.getInt("check") == 1) {
+					rs_liked.close();
+					return true;
+				}
+      }
+
+    } finally {
+
+      if (rs_liked != null) {
+        rs_liked.close();
+      }
+
+      if (pstmt_liked != null) {
+        pstmt_liked.close();
+      }
+
+      con.close();
+    }
+
+    return false;
+  }
+
+
+	}
 /*
 	public int findAuthor() throws SQLException {
 
@@ -82,4 +125,3 @@ public final class LikeAuthorDatabase {
 		return authorID;
 
 	}*/
-}

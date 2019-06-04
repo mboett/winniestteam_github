@@ -47,7 +47,7 @@ public class LikeServlet extends AbstractDatabaseServlet{
               return ;
             }
 			
-		request.getSession().setAttribute("like", likes.getAuthorID());
+		request.getSession().setAttribute("like", author_name);
 					
 		request.getRequestDispatcher("/jsp/search-author?id="+Integer.toString(authorID)).forward(request, response);
     }

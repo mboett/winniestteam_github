@@ -33,12 +33,12 @@
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
 						<c:if test="${sessionScope.like ne author.name}">
 							<a href="like?name=<c:out value="${author.name}"/>">
-								<button><i class="far fa-heart"></i></button>
+								<button class="heart btn"><i class="far fa-heart"></i></button>
 							</a>
 						</c:if>
 						<c:if test="${sessionScope.like eq author.name}">
 							<a href="dislike?name=<c:out value="${author.name}"/>">
-								<button><i class="fas fa-heart"></i></button>
+								<button class="heart btn"><i class="fas fa-heart"></i></button>
 							</a>
 						</c:if>
 					</h1>

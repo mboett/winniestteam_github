@@ -9,6 +9,17 @@ body {
 	margin: 0px 4px 0px 4px;
 }
 
+.heart	{
+	width: auto;
+	background: transparent;
+	border: 0px;
+	color: #303234;
+}
+
+.heart:hover	{
+	color: #20c997;
+}
+
 header	{
 	/*background-color: #CCCCCC;
 	background: linear-gradient(to bottom, #EEEEEE 0%, #DDDDDD 100%);

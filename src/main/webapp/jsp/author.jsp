@@ -37,7 +37,7 @@
 							</a>
 						</c:if>
 						<c:if test="${sessionScope.like eq author.name}">
-							<a href="like?name=<c:out value="${author.name}"/>">
+							<a href="dislike?name=<c:out value="${author.name}"/>">
 								<button><i class="fas fa-heart"></i></button>
 							</a>
 						</c:if>

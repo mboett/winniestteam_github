@@ -80,9 +80,14 @@
         <servlet-class>it.unipd.dei.clef.servlet.CreatePaperServlet</servlet-class>
     </servlet>
 	
-	  <servlet>
+	<servlet>
         <servlet-name>LikeServlet</servlet-name>
         <servlet-class>it.unipd.dei.clef.servlet.LikeServlet</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>DisLikeServlet</servlet-name>
+        <servlet-class>it.unipd.dei.clef.servlet.DisLikeServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
@@ -133,6 +138,16 @@
     <servlet-mapping>
         <servlet-name>LikeServlet</servlet-name>
         <url-pattern>/jsp/like</url-pattern>
+    </servlet-mapping>
+	
+	<servlet-mapping>
+        <servlet-name>DisLikeServlet</servlet-name>
+        <url-pattern>/dislike</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>DisLikeServlet</servlet-name>
+        <url-pattern>/jsp/dislike</url-pattern>
     </servlet-mapping>
 
 	<resource-ref>

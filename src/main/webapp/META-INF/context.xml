@@ -28,6 +28,7 @@
           type="javax.sql.DataSource"
           factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
           driverClassName="org.postgresql.Driver"
+		  closeMethod="close"
           url="jdbc:postgresql://localhost:5432/clef"
           username="postgres"
           password="postgres"

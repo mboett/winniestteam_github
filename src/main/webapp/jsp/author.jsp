@@ -29,20 +29,19 @@
 			<div class="content">
 			<c:if test="${sessionScope.log}">
 				<c:if test='${not empty author}'>
-					<c:if test="${not favorite}">
-						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-							<a href="like?id=<c:out value="${param.id}"/>">
+					
+					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
+						<c:if test="${sessionScope.like ne author.name}">
+							<a href="like?name=<c:out value="${author.name}"/>">
 								<button class="heart btn"><i class="far fa-heart"></i></button>
 							</a>
-						</h1>
-					</c:if>
-					<c:if test="${favorite}">
-						<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
-							<a href="dislike?id=<c:out value="${param.id}"/>">
+						</c:if>
+						<c:if test="${sessionScope.like eq author.name}">
+							<a href="dislike?name=<c:out value="${author.name}"/>">
 								<button class="heart btn"><i class="fas fa-heart"></i></button>
 							</a>
-						</h1>
-					</c:if>
+						</c:if>
+					</h1>
 
 					<div class="row">
 						<div class = "col-md-8">

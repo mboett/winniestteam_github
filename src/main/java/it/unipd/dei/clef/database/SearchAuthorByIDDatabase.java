@@ -32,11 +32,28 @@ public final class SearchAuthorByIDDatabase {
 	private final Connection con;
 
 	/**
-	 * The AuthorID of the employee
+	 * The AuthorID of the author
 	 */
 	private final int authorID;
 	
+	/**
+	 * The Like object which stores email of the user and AuthorID of the author
+	 */
 	private final Likes likes;
+	
+	/**
+	 * Creates a new object for searching authors by ID.
+	 * 
+	 * @param con
+	 *            the connection to the database.
+	 * @param id
+	 *            the id of the author.
+	 */
+	public SearchAuthorByIDDatabase(final Connection con, final int id) {
+		this.con = con;
+		this.authorID = id;
+		this.likes = null;
+	}
 
 	/**
 	 * Creates a new object for searching authors by ID.
@@ -46,7 +63,7 @@ public final class SearchAuthorByIDDatabase {
 	 * @param id
 	 *            the id of the author.
 	 * @param likes
-	 *            the id of the author.
+	 *            the like object in which the email of the user and the authorid of the author are stored.
 	 */
 	public SearchAuthorByIDDatabase(final Connection con, final int id, Likes likes) {
 		this.con = con;
@@ -104,11 +121,19 @@ public final class SearchAuthorByIDDatabase {
 		return author;
 	}
 	
+	/**
+	 * Checks if the user has already liked the author.
+	 * 
+	 * @return a boolean variable which is true only if the user has liked the author.
+	 * 
+	 * @throws SQLException
+	 *             if any error occurs while searching for authors.
+	 */
 	public boolean searchAuthor() throws SQLException {
 
 		PreparedStatement pstmt_like = null;
 		ResultSet rs = null;
-		int id = 0;
+		int id = -1;
 
 		try {
 
@@ -121,7 +146,7 @@ public final class SearchAuthorByIDDatabase {
 				id = rs.getInt("AuthorID");
 			}
 			
-			if(id != 0)	{
+			if(id > 0)	{
 				return true;
 			}
 			else

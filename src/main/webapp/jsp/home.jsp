@@ -189,7 +189,7 @@
 				}
 			});
 			
-			/*s.bind('outNode', function(e) {
+			s.bind('clickStage', function(e) {
 				s.graph.nodes().forEach(function(n) {
 				  n.color = n.originalColor;
 				});
@@ -199,7 +199,7 @@
 				});
 
 				s.refresh();
-			});*/
+			});
 						
 			s.bind("doubleClickNode", function(e){
 			

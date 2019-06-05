@@ -137,7 +137,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="row text-center align-items-center">
-								<p class="title" style="width:100%;">Cannot find author<!--<c:out value="${name}"/>--></p>
+								<p class="title" style="width:100%;">Ups! There's nothing here :(<!--<c:out value="${name}"/>--></p>
 							</div>
 							<div class = "row text-center align-items-center">
 								<div class="col-md-2">

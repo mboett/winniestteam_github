@@ -61,7 +61,7 @@ public final class SearchAuthorByNameDatabase {
 		ResultSet rs = null;
 
 		// The results of the search
-		int id = 0;
+		int id = -1;
 		boolean firstRead = true;
 
 		try {

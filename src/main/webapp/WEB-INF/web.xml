@@ -95,11 +95,6 @@
         <servlet-class>it.unipd.dei.clef.servlet.ShowFavouritesServlet</servlet-class>
     </servlet>
 	
-	<servlet>
-        <servlet-name>SearchLikeServlet</servlet-name>
-        <servlet-class>it.unipd.dei.clef.servlet.SearchLikeServlet</servlet-class>
-    </servlet>
-	
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -158,16 +153,6 @@
     <servlet-mapping>
         <servlet-name>DisLikeServlet</servlet-name>
         <url-pattern>/jsp/dislike</url-pattern>
-    </servlet-mapping>
-	
-	<servlet-mapping>
-        <servlet-name>SearchLikeServlet</servlet-name>
-        <url-pattern>/search-like</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>SearchLikeServlet</servlet-name>
-        <url-pattern>/jsp/search-like</url-pattern>
     </servlet-mapping>
 	
 	<servlet-mapping>

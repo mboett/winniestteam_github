@@ -25,6 +25,7 @@ public final class SearchAuthorByIDDatabase {
 	 */
 	private static final String STATEMENT = "SELECT Author.AuthorID, Paper.PaperID, Author.Name, Paper.Title, Paper.Year, Paper.MDate, Paper.Key, Paper.DOI FROM Author INNER JOIN write ON Author.AuthorID = Write.AuthorID INNER JOIN Paper on Write.PaperID = Paper.PaperID WHERE Author.AuthorID = ? ORDER BY Paper.Year ASC";
 	private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Likes WHERE Email = ? AND AuthorID = ?";
+	private static final String COUNT_LIKES = "SELECT COUNT(*) FROM Likes WHERE AuthorID = ?";
 
 	/**
 	 * The connection to the database
@@ -32,11 +33,28 @@ public final class SearchAuthorByIDDatabase {
 	private final Connection con;
 
 	/**
-	 * The AuthorID of the employee
+	 * The AuthorID of the author
 	 */
 	private final int authorID;
 	
+	/**
+	 * The Like object which stores email of the user and AuthorID of the author
+	 */
 	private final Likes likes;
+	
+	/**
+	 * Creates a new object for searching authors by ID.
+	 * 
+	 * @param con
+	 *            the connection to the database.
+	 * @param id
+	 *            the id of the author.
+	 */
+	public SearchAuthorByIDDatabase(final Connection con, final int id) {
+		this.con = con;
+		this.authorID = id;
+		this.likes = null;
+	}
 
 	/**
 	 * Creates a new object for searching authors by ID.
@@ -46,7 +64,7 @@ public final class SearchAuthorByIDDatabase {
 	 * @param id
 	 *            the id of the author.
 	 * @param likes
-	 *            the id of the author.
+	 *            the like object in which the email of the user and the authorid of the author are stored.
 	 */
 	public SearchAuthorByIDDatabase(final Connection con, final int id, Likes likes) {
 		this.con = con;
@@ -104,11 +122,19 @@ public final class SearchAuthorByIDDatabase {
 		return author;
 	}
 	
+	/**
+	 * Checks if the user has already liked the author.
+	 * 
+	 * @return a boolean variable which is true only if the user has liked the author.
+	 * 
+	 * @throws SQLException
+	 *             if any error occurs while searching for authors.
+	 */
 	public boolean searchAuthor() throws SQLException {
 
 		PreparedStatement pstmt_like = null;
 		ResultSet rs = null;
-		int id = 0;
+		int id = -1;
 
 		try {
 
@@ -121,7 +147,7 @@ public final class SearchAuthorByIDDatabase {
 				id = rs.getInt("AuthorID");
 			}
 			
-			if(id != 0)	{
+			if(id > 0)	{
 				return true;
 			}
 			else
@@ -131,6 +157,43 @@ public final class SearchAuthorByIDDatabase {
 
 			if (pstmt_like != null) {
 				pstmt_like.close();
+			}
+
+			con.close();
+		}
+
+	}
+	
+	/**
+	 * Counts how many likes an author has.
+	 * 
+	 * @return the number of likes.
+	 * 
+	 * @throws SQLException
+	 *             if any error occurs while searching for authors.
+	 */
+	public int countLikes() throws SQLException {
+
+		PreparedStatement pstmt_count = null;
+		ResultSet rs = null;
+		int count = -1;
+
+		try {
+
+			pstmt_count = con.prepareStatement(COUNT_LIKES);
+			pstmt_count.setInt(1, likes.getAuthorID());
+			rs = pstmt_count.executeQuery();
+			
+			while (rs.next()) {
+				count = rs.getInt("count");
+			}
+			
+			return count;
+
+		} finally {
+
+			if (pstmt_count != null) {
+				pstmt_count.close();
 			}
 
 			con.close();

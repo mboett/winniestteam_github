@@ -25,6 +25,7 @@ public final class SearchAuthorByIDDatabase {
 	 */
 	private static final String STATEMENT = "SELECT Author.AuthorID, Paper.PaperID, Author.Name, Paper.Title, Paper.Year, Paper.MDate, Paper.Key, Paper.DOI FROM Author INNER JOIN write ON Author.AuthorID = Write.AuthorID INNER JOIN Paper on Write.PaperID = Paper.PaperID WHERE Author.AuthorID = ? ORDER BY Paper.Year ASC";
 	private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Likes WHERE Email = ? AND AuthorID = ?";
+	private static final String COUNT_LIKES = "SELECT COUNT(*) FROM Likes WHERE AuthorID = ?";
 
 	/**
 	 * The connection to the database
@@ -156,6 +157,43 @@ public final class SearchAuthorByIDDatabase {
 
 			if (pstmt_like != null) {
 				pstmt_like.close();
+			}
+
+			con.close();
+		}
+
+	}
+	
+	/**
+	 * Counts how many likes an author has.
+	 * 
+	 * @return the number of likes.
+	 * 
+	 * @throws SQLException
+	 *             if any error occurs while searching for authors.
+	 */
+	public int countLikes() throws SQLException {
+
+		PreparedStatement pstmt_count = null;
+		ResultSet rs = null;
+		int count = -1;
+
+		try {
+
+			pstmt_count = con.prepareStatement(COUNT_LIKES);
+			pstmt_count.setInt(1, likes.getAuthorID());
+			rs = pstmt_count.executeQuery();
+			
+			while (rs.next()) {
+				count = rs.getInt("count");
+			}
+			
+			return count;
+
+		} finally {
+
+			if (pstmt_count != null) {
+				pstmt_count.close();
 			}
 
 			con.close();

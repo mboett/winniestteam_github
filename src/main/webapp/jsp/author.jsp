@@ -41,7 +41,10 @@
 							<button class="heart btn"><i class="fas fa-heart"></i></button>
 						  </a>
 						</c:if>
-					  </h1>
+						<span style="font-size:15px; font-weight:normal;">
+							<c:out value="${count}"/> people liked this author
+						</span>
+					</h1>
 					  
 					<div class="row">
 						<div class = "col-md-8">

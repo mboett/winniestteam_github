@@ -45,6 +45,7 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 		Likes likes = null;
 		boolean fav = false;
 		String email = null;
+		int likesCount = -1;
 
 		// Model
 		Author author = null;
@@ -71,7 +72,10 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 			
 			// Check if the author is present in the likes table associated to the logged in user e-mail
 			fav = new SearchAuthorByIDDatabase(getDataSource().getConnection(), ID, likes)
-					.searchAuthor();	
+					.searchAuthor();
+					
+			likesCount = new SearchAuthorByIDDatabase(getDataSource().getConnection(), ID, likes)
+					.countLikes();
 						
 		} catch (NumberFormatException ex) {
 			m = new Message("Cannot search for the author. Invalid input parameters: the id must be an integer.", 
@@ -88,6 +92,8 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 		
 		// Store true if the user has already inserted the author as favourite, false otherwise
 		req.setAttribute("favo", fav);
+		
+		req.setAttribute("count", likesCount);
 		
 		// Forwards the control to the author JSP
 		req.getRequestDispatcher("/jsp/author.jsp").forward(req, res);

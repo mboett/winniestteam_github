@@ -58,13 +58,7 @@ public class ParserMain {
 		JSONBuilder.printJSONToFile(paperInfo, "src\\main\\webapp\\json\\papers.json");
 		JSONBuilder.printJSONToFile(allAuthors, "src\\main\\webapp\\json\\authors.json");
 
-		for (int i=0; i<authorList.size(); i++) {
-
-			aut = authorList.get(i);
-			id = aut.getID();
-			JSONObject singleAuthor = JSONBuilder.getStatisticAboutPapers(aut, authorList); 
-			JSONBuilder.printJSONToFile(singleAuthor,"src\\main\\webapp\\json\\authors\\author" + id + ".json");
-		}
+		
 		/*statistics.getAuthorRank(false);
 		ArrayList<RankAuthor> rank = statistics.sortRankAuthorList(false);
 		statistics.getRankAuthorJSON(200, false);*/

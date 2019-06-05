@@ -33,7 +33,12 @@ $(document).ready(function() {
 									if(type === 'display'){
 										result = "<p>";
 										for (idx = 0; idx < data.length; idx++){
-											result = result + '<a class="link" href="search-author?id='+row.ID[idx]+'">' + data[idx] + '</a> ';
+											if (data[idx]!=null) {
+												result = result + '<a class="link" href="search-author?id='+row.ID[idx]+'">' + data[idx] + '</a> ';
+											} else {
+												result = result + '<a>None</a> ';
+											}
+											
 										}
 										result = result + "</p>"
 									}

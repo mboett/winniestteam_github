@@ -259,7 +259,7 @@ public class StaxParser {
                             parser.next();
                         }
 
-                        title = suf;
+                        title = suf.replaceAll(target, replacement);
                         suf = "";
 
                     } else if ("author".equals(parser.getLocalName())) {
@@ -311,7 +311,7 @@ public class StaxParser {
                             parser.next();
                         }
 
-                        booktitle = suf;
+                        booktitle = suf.replaceAll(target, replacement);
                         suf = "";
 
                     } else if ("publisher".equals(parser.getLocalName())) {

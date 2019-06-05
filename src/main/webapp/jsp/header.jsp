@@ -45,8 +45,8 @@
 			</c:if>
 			<c:if test="${sessionScope.log}">
 		    <form action="logout" method="POST">
-				<p id="login-as"> 
-					Logged in as <a class="link" id="user-mail" href="<c:url value="favs?email=${sessionScope.email}"/>"><c:out value="${sessionScope.email}"/> <i class="fas fa-user"></i>	</a>
+				<p id="login-as" style="margin-top:-25px;"> 
+					Logged as <br> <a class="link" id="user-mail" href="<c:url value="favs?email=${sessionScope.email}"/>"><c:out value="${sessionScope.email}"/> <i class="fas fa-user"></i>	</a>
 					<div class="row">
 						<div class="col-md-6">
 						</div>

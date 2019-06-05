@@ -47,8 +47,8 @@
 
 					<div class = "row">
 						<div class = "col-md-12">
-							<p id="redirect-message" class="text text-center">
-								You will be redirected to the Home Page in 5 seconds or you can click <a class="link" href="<c:url value="/jsp/home.jsp"/>">here</a>.
+							<p class="text text-center">
+								You will be redirected to the Home Page in <span id="redirect-message"> 5 </span> seconds or you can click <a class="link" href="<c:url value="/jsp/home.jsp"/>">here</a>.
 							</p>
 						</div>
 					</div>

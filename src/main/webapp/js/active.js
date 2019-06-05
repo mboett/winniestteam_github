@@ -1,14 +1,13 @@
 var links = document.getElementsByClassName("nav-link");
-
+var url = location.pathname.split("/");
+var elHref = element.href.split("/");
 var i;
-for(i = 0; i < links.length - 1; i++)	{
+
+for(i = 0; i < links.length; i++)	{
 	
 	var element = links[i];
-	if(element.href.split("/")[5] === location.pathname.split("/")[3])	{
+	if(elHref[elHref.length-1] === url[url.length-1])	{
 		element.className += " active";
-	}
-	else if (location.pathname.split("/").length < 4){
-		links[0].className += " active";
 	}
 	
 }

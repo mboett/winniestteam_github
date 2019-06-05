@@ -93,44 +93,24 @@
 						About
 					</a>
 				</li>
-				<c:if test="${sessionScope.log}">
-					<li class="nav-item">
-						<a class="nav-link" id="search">
-							<i class="fas fa-plus"></i>
-						</a>
-						<div class="search-content">
-							<div class="measuringWrapper">
-								<form method="POST" action="createpaper">
-									<div class="form-group">
-										<p class="text">Title</p>
-										<div class="input-group">
-											<input type="text" class="form-control form-control-sm" name="title">
-										</div>
+				<li class="nav-item">
+					<a class="nav-link" id="search">
+						<i class="fas fa-search"></i>
+					</a>
+					<div class="search-content">
+						<div class="measuringWrapper">
+							<form action="search-author-name" method="GET">
+								<div class="form-group">
+									<p class="text">Author</p>
+									<div class="input-group">
+										<input type="text" class="form-control form-control-sm" placeholder="Name Surname" name="name">
 									</div>
-									<div class="form-group">
-										<p class="text">Authors</p>
-										<div class="input-group">
-											<input type= "text" class= "form-control form-control-sm" name="name">
-										</div>
-									</div>
-									<div class="form-group">
-										<p class="text">Year</p>
-										<div class="input-group">
-											<input type="text" class="form-control form-control-sm" id="assign-year" name="year">
-										</div>
-									</div>
-									<div class="form-group">
-										<p class="text">Link</p>
-										<div class="input-group">
-											<input type="text" class="form-control form-control-sm" name="ee">
-										</div>
-									</div>
-									<button type="submit" class="btn btn-primary" id="search-button">Add</button>
-								</form>
-							</div>
+								</div>
+								<button type="go" class="btn btn-primary" id="search-button">Search</button>
+							</form>
 						</div>
-					</li>
-				</c:if>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</div>

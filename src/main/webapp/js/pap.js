@@ -33,7 +33,7 @@ $(document).ready(function() {
 									if(type === 'display'){
 										result = "<p>";
 										for (idx = 0; idx < data.length; idx++){
-											result = result + '<a class="link" href="search-author?id='+row.ID[idx]+'">' + data[idx] + '</a> ';
+											result = result + '<a class="link autlink" href="search-author?id='+row.ID[idx]+'">' + data[idx] + '</a> ';
 										}
 										result = result + "</p>"
 									}

@@ -14,7 +14,7 @@ public class Author implements Comparable<Author>{
 
 	private final String author_name;
 	
-	private final int id;
+	private final int ID;
 	
 	private final ArrayList<Paper> publications;
 
@@ -22,18 +22,18 @@ public class Author implements Comparable<Author>{
 
 
 	// Constructor
-	public Author(final int id, final String name) {
+	public Author(final int ID, final String name) {
 		
-		this.id = id;
+		this.ID = ID;
 		this.author_name = name;
 		this.collab = 0;
 		this.publications = new ArrayList<>();
 	}
 	
 	// Constructor
-	public Author(final int id, final String name, final int coll) {
+	public Author(final int ID, final String name, final int coll) {
 		
-		this.id = id;
+		this.ID = ID;
 		this.author_name = name;
 		this.collab = coll;
 		this.publications = new ArrayList<>();
@@ -84,7 +84,7 @@ public class Author implements Comparable<Author>{
 	}
 	
 	public int getID(){
-		return id;
+		return ID;
 	}
 
 	// Implementation of Comparable

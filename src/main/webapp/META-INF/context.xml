@@ -22,25 +22,25 @@
 
 <!-- The contents of this file will be loaded for each web application -->
 <Context>
-
-   <Resource name="jdbc/clef"
-          auth="Container"
-          type="javax.sql.DataSource"
-          factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
-          driverClassName="org.postgresql.Driver"
-		  closeMethod="close"
-          url="jdbc:postgresql://localhost:5432/clef"
-          username="postgres"
-          password="postgres"
-          testOnBorrow="true"
-          validationQuery="SELECT 1"
-          timeBetweenEvictionRunsMillis="30000"
-          maxActive="2"
-          minIdle="1"
-          maxWait="10000"
-          initialSize="1"
-          removeAbandonedTimeout="60"
-          removeAbandoned="true"
-	/>
-
+    
+    <Resource name="jdbc/clef"
+    auth="Container"
+    type="javax.sql.DataSource"
+    factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+    driverClassName="org.postgresql.Driver"
+    closeMethod="close"
+    url="jdbc:postgresql://dbstud.dei.unipd.it:5432/webapp1819"
+    username="webapp1819"
+    password="1819webapp"
+    testOnBorrow="true"
+    validationQuery="SELECT 1"
+    timeBetweenEvictionRunsMillis="30000"
+    maxActive="2"
+    minIdle="1"
+    maxWait="10000"
+    initialSize="1"
+    removeAbandonedTimeout="60"
+    removeAbandoned="true"
+    />
+    
 </Context>

@@ -22,7 +22,7 @@ public final class SearchAuthorByNameDatabase {
 	/**
 	 * The SQL statement to be executed
 	 */
-	private static final String STATEMENT = "SELECT Author.AuthorID FROM Author WHERE Author.Name = ?";
+	private static final String STATEMENT = "SELECT Author.AuthorID FROM Author WHERE lower(Author.Name) = lower(?)";
 
 	/**
 	 * The connection to the database

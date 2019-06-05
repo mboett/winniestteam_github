@@ -38,7 +38,6 @@ $(document).ready(function() {
 											} else {
 												result = result + '<a>None</a> ';
 											}
-											
 										}
 										result = result + "</p>"
 									}

@@ -93,6 +93,7 @@ public final class SearchAuthorByIDServlet extends AbstractDatabaseServlet {
 		// Store true if the user has already inserted the author as favourite, false otherwise
 		req.setAttribute("favo", fav);
 		
+		// Store the number of likes that the author received
 		req.setAttribute("count", likesCount);
 		
 		// Forwards the control to the author JSP

@@ -35,7 +35,7 @@
 								<tbody>
 									<c:forEach var="author" items="${user.favList}">
 										<tr>
-											<td><div id="linkdiv"><a class="link" href="#"<!--href="<c:out value="${author.ee}"/>"-->><c:out value="${author.author_name}" escapeXml="false"/></a></div></td>
+											<td><div id="linkdiv"><a class="link" href="<c:url value="search-author?id=${author.ID}"/>"><c:out value="${author.name}" escapeXml="false"/></a></div></td>
 										</tr>
 									</c:forEach>
 								</tbody>

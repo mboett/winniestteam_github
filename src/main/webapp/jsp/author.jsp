@@ -11,7 +11,7 @@
 
 		<title>
 			<c:if test='${not empty author}'>
-				CLEF | <c:out value="${author.name}"/>
+				CLEF | <c:out value="${author.name}" escapeXml="false"/>
 			</c:if>
 			<c:if test='${empty author}'>
 				Not Found

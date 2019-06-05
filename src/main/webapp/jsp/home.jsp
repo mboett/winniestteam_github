@@ -95,6 +95,8 @@
 		// App Name
 		var splitedPath = window.location.pathname.split("/");
 		var appName = splitedPath[1];
+		var nodeId = -1;
+		var counter = 0;
 		
 		sigma.classes.graph.addMethod('neighbors', function(nodeId) {
 			var k,
@@ -150,27 +152,44 @@
 			//s.startForceAtlas2();
 			//window.setTimeout(function() {s.killForceAtlas2()}, 10000);	
 			
-			s.bind('overNode', function(e) {
-				var nodeId = e.data.node.id,
-					toKeep = s.graph.neighbors(nodeId);
-				toKeep[nodeId] = e.data.node;
+			s.bind('clickNode', function(e) {
+				if (nodeId != e.data.node.id || counter < 1){
+					
+					// Update node id and counter
+					counter = 1;
+					nodeId = e.data.node.id;
+					var toKeep = s.graph.neighbors(nodeId);
+					toKeep[nodeId] = e.data.node;
 
-				s.graph.nodes().forEach(function(n) {
-				  if (toKeep[n.id])
-					n.color = n.originalColor;
-				  else
-					n.color = '#eee';
-				});
+					s.graph.nodes().forEach(function(n) {
+					  if (toKeep[n.id])
+						n.color = n.originalColor;
+					  else
+						n.color = '#eee';
+					});
 
-				s.graph.edges().forEach(function(e) {
-				  if (toKeep[e.source] && toKeep[e.target])
-					e.color = e.originalColor;
-				  else
-					e.color = '#eee';
-				});
-				s.refresh();
+					s.graph.edges().forEach(function(e) {
+					  if (toKeep[e.source] && toKeep[e.target])
+						e.color = e.originalColor;
+					  else
+						e.color = '#eee';
+					});
+					s.refresh();
+				} else {
+					counter = 0;
+					s.graph.nodes().forEach(function(n) {
+					  n.color = n.originalColor;
+					});
+
+					s.graph.edges().forEach(function(e) {
+					  e.color = e.originalColor;
+					});
+
+					s.refresh();
+				}
 			});
-			s.bind('outNode', function(e) {
+			
+			/*s.bind('outNode', function(e) {
 				s.graph.nodes().forEach(function(n) {
 				  n.color = n.originalColor;
 				});
@@ -180,9 +199,9 @@
 				});
 
 				s.refresh();
-			});
+			});*/
 						
-			s.bind("clickNode", function(e){
+			s.bind("doubleClickNode", function(e){
 			
 				// Get informations about the node
 				var node = e.data.node; 

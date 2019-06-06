@@ -41,6 +41,7 @@ public final class DisLikeAuthorDatabase {
 
 			pstmt_like.execute();
 			
+			pstmt_count_like = con.prepareStatement(COUNT_LIKES);
 			pstmt_count_like.setInt(1,likes.getAuthorID());
 			
 			rs = pstmt_count_like.executeQuery();

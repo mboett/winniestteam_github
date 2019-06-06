@@ -15,6 +15,13 @@ import java.net.URL;
 public class LoginServlet extends AbstractDatabaseServlet {
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+      response.setContentType("text/html");
+      request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
       request.getSession().setAttribute("email", request.getParameter("email"));
@@ -41,8 +48,9 @@ public class LoginServlet extends AbstractDatabaseServlet {
 
       request.getSession().setAttribute("log", log);
       request.getSession().setAttribute("email", email);
+      response.sendRedirect(request.getHeader("referer"));
       //request.getRequestDispatcher(referrer).forward(request, response);
-      request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+      //request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
       //response.sendRedirect(request.getRequestURI());
   }
 

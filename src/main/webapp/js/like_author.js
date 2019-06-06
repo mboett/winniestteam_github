@@ -4,6 +4,7 @@ var image_like = document.getElementById("like-image");
 var like_counter = document.getElementById("like-counter");
 
 if (button_like != null && image_like != null){
+	
 	var image_classes = image_like.className;
 	var id = url.searchParams.get("id");
 
@@ -11,6 +12,10 @@ if (button_like != null && image_like != null){
 
 	// Set listener to button click
 	button_like.addEventListener("click", function(){
+		
+		// Update classes
+		image_classes = image_like.className;
+		console.log(image_classes);
 		
 		// Check if we want to like or dislike the author	
 		// NOT liked
@@ -25,12 +30,11 @@ if (button_like != null && image_like != null){
 					error: printError
 			});
 			
-			// Update classes
-			image_classes = image_like.className;
-			console.log(image_classes);
 
+		
+		}
 		// liked
-		} else if (image_classes == "fa-heart fas"){
+		if (image_classes == "fa-heart fas"){
 			
 			// Ajax call to remove like
 			// Ajax call to add like
@@ -40,10 +44,6 @@ if (button_like != null && image_like != null){
 					url: "rest/like/"+id,
 					success: removeLikeUpdateCount
 			});
-			
-			// Update classes
-			image_classes = image_like.className;
-			console.log(image_classes);
 			
 		}
 	});

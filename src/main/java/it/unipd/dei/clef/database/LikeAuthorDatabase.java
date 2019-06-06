@@ -12,7 +12,6 @@ public final class LikeAuthorDatabase {
 
 	private static final String INSERT_LIKE = "INSERT INTO Likes (Email, AuthorID) VALUES (?, ?)";
 	private static final String COUNT_LIKES = "SELECT COUNT(*) FROM Likes WHERE AuthorID = ?";
-	//private static final String SELECT_AUTHOR = "SELECT AuthorID FROM Author WHERE Name = ?";
 
 	private final Connection con;
 
@@ -36,11 +35,12 @@ public final class LikeAuthorDatabase {
 		try {
 
 			pstmt_like = con.prepareStatement(INSERT_LIKE);
-			pstmt_like.setString(1, "comeva@io.it");//likes.getEmail());
+			pstmt_like.setString(1, likes.getEmail());
 			pstmt_like.setInt(2, likes.getAuthorID());
 			
 			pstmt_like.execute();
 			
+			pstmt_count_like = con.prepareStatement(COUNT_LIKES);
 			pstmt_count_like.setInt(1,likes.getAuthorID());
 			
 			rs = pstmt_count_like.executeQuery();

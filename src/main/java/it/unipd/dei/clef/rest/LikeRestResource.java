@@ -41,8 +41,8 @@ public final class LikeRestResource extends RestResource {
 			final int id = Integer.parseInt(path.substring(1));
 			
 			// Get email from session
-			// HttpSession session = req.getSession();
-			final String email = "comeva@io.it";//(String) session.getAttribute("email");
+			HttpSession session = req.getSession();
+			final String email = (String) session.getAttribute("email");
 			
 			// Creates a new object for accessing the database and reads number of likes of the author
 			like = new LikeAuthorDatabase(con, new Likes(email,id)).likeAuthor();
@@ -84,8 +84,8 @@ public final class LikeRestResource extends RestResource {
 			trial = id;
 			
 			// Get email from session
-			//HttpSession session = req.getSession();
-			final String email = "comeva@io.it";//(String) session.getAttribute("email");
+			HttpSession session = req.getSession();
+			final String email = (String) session.getAttribute("email");
 			mam = email;
 			
 			// Creates a new object for accessing the database and reads number of likes of the author

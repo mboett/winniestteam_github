@@ -22,7 +22,7 @@ import java.util.Comparator;
 
 public class FindYears {
 
-	private static final String GET_YEAR_OC = "SELECT Paper.Year, COUNT(*) FROM Paper INNER JOIN Write ON Paper.PaperID = Write.PaperID INNER JOIN Author ON Write.AuthorID = Author.AuthorID WHERE Author.AuthorID = ? GROUP BY Paper.year";
+	private static final String GET_YEAR_OC = "SELECT Paper.Year, COUNT(*) FROM Paper INNER JOIN Write ON Paper.PaperID = Write.PaperID INNER JOIN Author ON Write.AuthorID = Author.AuthorID WHERE Author.AuthorID = ? GROUP BY Paper.year ORDER BY Paper.Year ASC";
 
 	private final Connection con;
 	

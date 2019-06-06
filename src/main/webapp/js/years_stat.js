@@ -3,7 +3,7 @@ var url = new URL(window.location.href);
 var id = url.searchParams.get("id");
 
 // Build Rest URL
-var restURL = "../rest/statistic/years/"+id;
+var restURL = "rest/statistic/years/"+id;
 
 // Ajax request
 $.ajax({

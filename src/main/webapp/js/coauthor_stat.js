@@ -3,7 +3,7 @@ var url = new URL(window.location.href);
 var id = url.searchParams.get("id");
 
 // Build Rest URL
-var restURL = "../rest/statistic/coauthors/"+id;
+var restURL = "rest/statistic/coauthors/"+id;
 
 // Ajax request
 $.ajax({

@@ -15,7 +15,7 @@ public class LogoutServlet extends AbstractDatabaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         request.getSession().setAttribute("log", false);
         request.getSession().invalidate();
-        request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
+        response.sendRedirect(request.getHeader("referer"));
     }
 
 }

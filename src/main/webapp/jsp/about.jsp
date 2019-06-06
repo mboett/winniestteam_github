@@ -56,30 +56,15 @@
 				<div class="row">
 					<div class="col-md-5">
 						<h1 class="title">
-							Contact us
+							Developers
 						</h1>
-						<form id="message-form">
-							<div class="form-group">
-								<p class="text">Name</p>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Insert your name" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<p class="text">E-mail</p>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Type here your e-mail address" required>
-								</div>
-							</div>
-							<div class="form-group">
-								<p class="text">Message</p>
-								<div class="input-group">
-									<textarea class="form-control">
-									</textarea>
-								</div>
-							</div>
-							<button type="send" class="btn btn-primary">Send</button>
-						</form>
+						<ul>
+							<li>Agostini Francesco</h1>
+							<li>Boetto Marco</li>
+							<li>Cattapan Alessandro</li>
+							<li>Gallinaro Giovanni</li>
+							<li>Gastaldello Nicola</li>
+						</ul>
 						
 					</div>
 					<div class="col-md-1">

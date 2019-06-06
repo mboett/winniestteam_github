@@ -32,16 +32,12 @@
 					
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
 						<c:if test="${not favo}">
-						  <a href="like?id=<c:out value="${param.id}"/>">
-							<button class="heart btn"><i class="far fa-heart"></i></button>
-						  </a>
+							<button id="like-button" type="button" class="heart btn"><i id="like-image" class="far fa-heart"></i></button>
 						</c:if>
 						<c:if test="${favo}">
-						  <a href="dislike?id=<c:out value="${param.id}"/>">
-							<button class="heart btn"><i class="fas fa-heart"></i></button>
-						  </a>
+							<button id="like-button" type="button" class="heart btn"><i id="like-image" class="fas fa-heart"></i></button>
 						</c:if>
-						<span style="font-size:15px; font-weight:normal;">
+						<span id="like-counter" style="font-size:15px; font-weight:normal;">
 							<c:out value="${count}"/> people liked this author
 						</span>
 					</h1>
@@ -166,6 +162,7 @@
     <c:import url="/jsp/foot.jsp"/>
 	<script src="/winniest-team-project-1.00/js/coauthor_stat.js"></script>
 	<script src="/winniest-team-project-1.00/js/years_stat.js"></script>
+	<script src="/winniest-team-project-1.00/js/like_author.js"></script>
 	<script src="/winniest-team-project-1.00/js/code.js"></script>
 
   </body>

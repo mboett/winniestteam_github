@@ -41,8 +41,8 @@ public final class LikeRestResource extends RestResource {
 			final int id = Integer.parseInt(path.substring(1));
 			
 			// Get email from session
-			HttpSession session = req.getSession();
-			final String email = (String) session.getAttribute("email");
+			// HttpSession session = req.getSession();
+			final String email = "comeva@io.it";//(String) session.getAttribute("email");
 			
 			// Creates a new object for accessing the database and reads number of likes of the author
 			like = new LikeAuthorDatabase(con, new Likes(email,id)).likeAuthor();
@@ -72,6 +72,8 @@ public final class LikeRestResource extends RestResource {
 
 		Likes like = null;
 		Message m = null;
+		int trial = -1;
+		String mam = "";
 
 		try{
 			// Parse the URI path to extract the id
@@ -79,10 +81,12 @@ public final class LikeRestResource extends RestResource {
 			path = path.substring(path.lastIndexOf("like") + 4);
 
 			final int id = Integer.parseInt(path.substring(1));
+			trial = id;
 			
 			// Get email from session
-			HttpSession session = req.getSession();
-			final String email = (String) session.getAttribute("email");
+			//HttpSession session = req.getSession();
+			final String email = "comeva@io.it";//(String) session.getAttribute("email");
+			mam = email;
 			
 			// Creates a new object for accessing the database and reads number of likes of the author
 			like = new DisLikeAuthorDatabase(con, new Likes(email,id)).disLikeAuthor();
@@ -96,7 +100,7 @@ public final class LikeRestResource extends RestResource {
 				m.toJSON(res.getOutputStream());
 			}
 		} catch (Throwable t) {
-			m = new Message("Cannot remove like to author: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot remove like to author: unexpected error. " + trial + "-" + mam, "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}

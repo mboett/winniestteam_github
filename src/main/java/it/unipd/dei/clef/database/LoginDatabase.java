@@ -48,6 +48,7 @@ public final class LoginDatabase {
 				pstmt.close();
 			}
 
+			con.close();
 		}
 
 		return false;
@@ -81,7 +82,7 @@ public final class LoginDatabase {
 			if (pstmt != null) {
 				pstmt.close();
 			}
-			
+			con.close();
 		}
 
 		return user_email;

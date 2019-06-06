@@ -6,22 +6,18 @@ var url = location.pathname.split("/");
 console.log(url.length);
 
 // Search the button to activate
-for(var i = 0; i < links.length; i++)	{
+for(var i = 0; i < links.length-1; i++)	{
 	
 	// Select one nav element
-	var element = links[i];
+	var el = links[i];
 	
-	// If the nav element points to a different page
-	if(element.href != null){
-		
-		// Get the link and divide it into pieces
-		var elHref = element.href.split("/");
-		if(url.length < 3 && elHref[elHref.length-1] == "home.jsp"){
-			links[i].className += " active";
-		} else if(elHref[elHref.length-1] === url[url.length-1]){
-			element.className += " active";
-		} else if((url[url.length-1] == "login" || url[url.length-1] == "logout") && elHref[elHref.length-1] == "home.jsp" ){
-			links[i].className += " active";
-		}
+	// Get the link and divide it into pieces
+	var elHref = el.href.split("/");
+	if(url.length < 4 && elHref[elHref.length-1] == "home.jsp"){
+		links[i].className += " active";
+	} else if(elHref[elHref.length-1] === url[url.length-1]){
+		el.className += " active";
+	} else if((url[url.length-1] == "login" || url[url.length-1] == "logout") && elHref[elHref.length-1] == "home.jsp" ){
+		links[i].className += " active";
 	}
 }

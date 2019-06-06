@@ -32,10 +32,10 @@
 					
 					<h1 class="title"><c:out value="${author.name}" escapeXml="false"/>
 						<c:if test="${not favo}">
-							<button id="like-button" type="button" class="heart btn"><i id="like-image" class="far fa-heart"></i></button>
+							<button id="like-button" type="button" class="heart btn"><i id="like-image" class="fa-heart far"></i></button>
 						</c:if>
 						<c:if test="${favo}">
-							<button id="like-button" type="button" class="heart btn"><i id="like-image" class="fas fa-heart"></i></button>
+							<button id="like-button" type="button" class="heart btn"><i id="like-image" class="fa-heart fas"></i></button>
 						</c:if>
 						<span id="like-counter" style="font-size:15px; font-weight:normal;">
 							<c:out value="${count}"/> people liked this author

@@ -14,7 +14,7 @@ if (button_like != null && image_like != null){
 		
 		// Check if we want to like or dislike the author	
 		// NOT liked
-		if (image_classes == "far fa-heart"){
+		if (image_classes == "fa-heart far"){
 			
 			// Ajax call to add like
 			$.ajax({
@@ -24,9 +24,13 @@ if (button_like != null && image_like != null){
 					success: addLikeUpdateCount,
 					error: printError
 			});
+			
+			// Update classes
+			image_classes = image_like.className;
+			console.log(image_classes);
 
 		// liked
-		} else if (image_classes == "fas fa-heart"){
+		} else if (image_classes == "fa-heart fas"){
 			
 			// Ajax call to remove like
 			// Ajax call to add like
@@ -36,6 +40,10 @@ if (button_like != null && image_like != null){
 					url: "rest/like/"+id,
 					success: removeLikeUpdateCount
 			});
+			
+			// Update classes
+			image_classes = image_like.className;
+			console.log(image_classes);
 			
 		}
 	});

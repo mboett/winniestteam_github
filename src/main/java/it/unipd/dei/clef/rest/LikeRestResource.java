@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Manages the REST API for the Statistic resource.
@@ -29,32 +30,36 @@ public final class LikeRestResource extends RestResource {
 	 */
 	public void addLikeToAuthor() throws IOException {
 
-		/*List<Coauthor> stat  = null;
+		Likes like = null;
 		Message m = null;
 
 		try{
 			// Parse the URI path to extract the id
 			String path = req.getRequestURI();
-			path = path.substring(path.lastIndexOf("coauthors") + 9);
+			path = path.substring(path.lastIndexOf("like") + 4);
 
 			final int id = Integer.parseInt(path.substring(1));
-
-			// Creates a new object for accessing the database and reads the coauthors
-			stat = new FindCoauthors(con, id).getCoauthors();
-
-			if(stat != null) {
+			
+			// Get email from session
+			HttpSession session = req.getSession();
+			final String email = (String) session.getAttribute("email");
+			
+			// Creates a new object for accessing the database and reads number of likes of the author
+			like = new LikeAuthorDatabase(con, new Likes(email,id)).likeAuthor();
+				
+			if(like != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				new ResourceList(stat).toJSON(res.getOutputStream());
+				like.toJSON(res.getOutputStream());
 			} else {
-				m = new Message(String.format("Coauthor statistic %d not found.", id), "E5A3", null);
+				m = new Message(String.format("AuthorID for like %d not found.", id), "E5A3", null);
 				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				m.toJSON(res.getOutputStream());
 			}
 		} catch (Throwable t) {
-			m = new Message("Cannot read coauthors statistic: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot add like to author: unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
-		}*/
+		}
 	}
 
 	/**
@@ -63,34 +68,37 @@ public final class LikeRestResource extends RestResource {
 	 * @throws IOException
 	 *             if any error occurs in the client/server communication.
 	 */
-	public void getYearStatistic() throws IOException {
+	public void removeLikeToAuthor() throws IOException {
 
-		/*List<YearOccurence> stat  = null;
+		Likes like = null;
 		Message m = null;
 
 		try{
-			// parse the URI path to extract the author id
+			// Parse the URI path to extract the id
 			String path = req.getRequestURI();
-			path = path.substring(path.lastIndexOf("years") + 5);
+			path = path.substring(path.lastIndexOf("like") + 4);
 
 			final int id = Integer.parseInt(path.substring(1));
 			
-			// creates a new object for accessing the database and reads the statistic
-			stat = new FindYears(con, id).getYears();
+			// Get email from session
+			HttpSession session = req.getSession();
+			final String email = (String) session.getAttribute("email");
 			
-			if(stat != null) {
+			// Creates a new object for accessing the database and reads number of likes of the author
+			like = new DisLikeAuthorDatabase(con, new Likes(email,id)).disLikeAuthor();
+				
+			if(like != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				new ResourceList(stat).toJSON(res.getOutputStream());
+				like.toJSON(res.getOutputStream());
 			} else {
-				m = new Message(String.format("Year statistic %d not found.", id), "E5A3", null);
+				m = new Message(String.format("AuthorID for unlike %d not found.", id), "E5A3", null);
 				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				m.toJSON(res.getOutputStream());
 			}
-			
 		} catch (Throwable t) {
-			m = new Message("Cannot read years statistic: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot remove like to author: unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
-		}*/
+		}
 	}
 }

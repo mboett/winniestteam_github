@@ -1,7 +1,7 @@
 package it.unipd.dei.clef.servlet;
 
 import it.unipd.dei.clef.resource.*;
-import it.unipd.dei.clef.rest.StatisticRestResource;
+import it.unipd.dei.clef.rest.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +49,11 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 			if (processStatistic(req, res)) {
 				return;
 			}
+			
+			// if the requested resource was a like, delegate its processing and return
+			if (processLike(req, res)) {
+				return;
+			}
 
 			// if none of the above process methods succeeds, it means an unknow resource has been requested
 			final Message m = new Message("Unknown resource requested.", "E4A6",
@@ -91,12 +96,12 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		}
 
 		switch(method) {
-			case "POST":
 			case "PUT":
-			case "DELETE":
 				// nothing to do
 				break;
-
+			
+			case "DELETE":
+			case "POST":
 			case "GET":
 				if(contentType == null) {
 					m = new Message("Input media type not specified.", "E4A3", "Content-Type request header missing.");
@@ -225,6 +230,86 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 								break;
 						}
 					}
+				}
+			}
+		} catch(Throwable t) {
+			m = new Message("Unexpected error.", "E5A1", t.getMessage());
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			m.toJSON(res.getOutputStream());
+		}
+
+		return true;
+
+	}
+	
+	/**
+	 * Checks whether the request if for a Like resource and, in case, processes it.
+	 */
+	private boolean processLike(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
+		final String method = req.getMethod();
+		final OutputStream out = res.getOutputStream();
+
+		String path = req.getRequestURI();
+		Message m = null;
+
+		// the requested resource was not a like
+		if(path.lastIndexOf("rest/like") <= 0) {
+			return false;
+		}
+
+		try {
+			// Strip everyhing until after the /like
+			path = path.substring(path.lastIndexOf("like") + 4);
+
+			// The request URI is: /like/{id}
+			if (path.length() == 0 || path.equals("/")) {
+				m = new Message("Wrong format for URI rest request of like",
+								"E4A7", String.format("Requested URI: %s.", req.getRequestURI()));
+				res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				m.toJSON(res.getOutputStream());
+			} else {
+				switch (method) {
+					case "POST":
+					
+						// Check that the parameter is actually an integer
+						try {
+							Integer.parseInt(path.substring(1));
+							
+							new LikeRestResource(req, res, getDataSource().getConnection()).addLikeToAuthor();
+						} catch (NumberFormatException e) {
+							m = new Message(
+									"Wrong format for URI /like/{id}: {id} is not an integer.",
+									"E4A7", e.getMessage());
+							res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+							m.toJSON(res.getOutputStream());
+						}
+
+						break;
+						
+					case "DELETE":
+					
+						// Check that the parameter is actually an integer
+						try {
+							Integer.parseInt(path.substring(1));
+							
+							new LikeRestResource(req, res, getDataSource().getConnection()).removeLikeToAuthor();
+						} catch (NumberFormatException e) {
+							m = new Message(
+									"Wrong format for URI /like/{id}: {id} is not an integer.",
+									"E4A7", e.getMessage());
+							res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+							m.toJSON(res.getOutputStream());
+						}
+
+						break;
+						
+					default:
+						m = new Message("Unsupported operation for URI /statistic/coauthors/{id}.", "E4A5",
+										String.format("Requested operation %s.", method));
+						res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+						m.toJSON(res.getOutputStream());
+						break;
 				}
 			}
 		} catch(Throwable t) {

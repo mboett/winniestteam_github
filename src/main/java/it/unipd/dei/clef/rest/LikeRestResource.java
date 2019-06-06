@@ -41,6 +41,7 @@ public final class LikeRestResource extends RestResource {
 			final int id = Integer.parseInt(path.substring(1));
 			
 			// Get email from session
+
 			HttpSession session = req.getSession();
 			final String email = (String) session.getAttribute("email");
 			
@@ -83,7 +84,6 @@ public final class LikeRestResource extends RestResource {
 			final int id = Integer.parseInt(path.substring(1));
 			trial = id;
 			
-			// Get email from session
 			HttpSession session = req.getSession();
 			final String email = (String) session.getAttribute("email");
 			mam = email;

@@ -147,7 +147,7 @@ public final class SearchAuthorByIDDatabase {
 				id = rs.getInt("AuthorID");
 			}
 			
-			if(id > 0)	{
+			if(id >= 0)	{
 				return true;
 			}
 			else
